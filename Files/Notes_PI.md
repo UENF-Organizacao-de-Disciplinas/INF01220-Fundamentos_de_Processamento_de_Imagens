@@ -755,7 +755,7 @@ $$
 F(x) = \frac{1}{N} \sum_{0 \leq u \leq N-1} f(u) \left[ \cos(2\pi u x /N) - j \sin(2\pi ux/N) \right], 0 \leq x \leq N-1
 $$
 
-## Aula 14 - 20/04/23 - 1/4 - [14h34, 15h58] - próxima
+## Aula 14 - 20/04/23 - 1/4 - [14h34, 15h58]
 
 ### Offtopic 14
 
@@ -800,10 +800,9 @@ Filtro H(u,v) -> (X)
 
 $$
 F(u,v)*H(u,v) = \frac{1}{NM} \sum_{m=0}^{M-1} \sum_{n=0}^{N-1} F(m,n) H(u-m, v-m)
-
 $$
 
-## Aula 15 - 25/04/23 - 1/4 - [....., .....] - próxima
+## Aula 15 - 25/04/23 - 1/4 - [14h35, 16h14]
 
 ### Offtopic (15)
 
@@ -888,8 +887,7 @@ $$
 <!-- Equação -->
 $$
 G(x,y,f,\theta,\sigma)=
-e^{
-  - \frac{1}{2}
+e^{- \frac{1}{2}
   \left(
     \frac{x^2_\theta}{\sigma^2_x}
     +
@@ -911,7 +909,7 @@ Parâmetros:
 2. $\theta$ é a orientação do filtro
 3. $\sigma = (\sigma_{x}, \sigma_{y})$ é o desvio padrão da função gaussiana ao longo dos eixos $x$ e $y$, respectivamente.
 
-#### Filtro decomposto em componentes reais e imaginários
+##### Filtro decomposto em componentes reais e imaginários
 
 <!-- Mais equações -->
 
@@ -919,4 +917,584 @@ Filtro passa banda: G = Fourier(W) * Fourier(V)
 
 Realça as senoides com frequências em torno de f, suprimindo seus ruídos.
 
-## Aula 16 - 27/04/23 - 1/4 - [....., .....] - próxima
+## Aula 16 - 27/04/23 - Não teve
+
+## Pesquisa
+
+> busca programa de análise de imagem por fourrier em Python ou c para podermos mexer na programação
+
+### Site - [Fourier][LinkFourier] + [Filtragem de imagens][Outra fonte]
+
+Transformada de fourier – Filtragem no domínio da frequência
+Uma imagem não é composta unicamente de altas e baixas frequências. Tanto que se plotarmos em um gráfico as variações das frequências de brilhos que uma imagem pode conter, obteremos uma curva complexa do tipo mostrado na Figura abaixo.
+
+Essa curva complexa (não periódica) pode ser decomposta em vários componentes de seno e cosseno, que nos dá uma ideia da distribuição espacial de frequência da imagem.
+
+Para decompor a imagem em seus componentes de seno e cosseno, como visto na figura acima, usa-se a Transformada de Fourier.
+
+No domínio de Fourier cada ponto da imagem representa uma frequência única que está contida no domínio espacial da imagem.
+
+Para o processamento de imagem digital, a qual é uma função bidimensional discreta, se utiliza da Transformada de Fourier Discreta, que é uma versão da transformada Fourier.
+
+A transformada discreta não contém todas as frequências da imagem, mas apenas um conjunto de frequência que é suficiente para descrever completamente o domínio espacial da imagem.
+
+Conforme é demonstrado na figura abaixo, o processo de filtragem no domínio da frequência é um processo de dois passos. Primeiro, para que os dados do domínio espacial sejam analisados no domínio da frequência necessitamos utilizar a Transformada de Fourier direta.
+
+Em seguida, a Transformada de Fourier inversa é usada no sentido contrário. Ou seja, de volta ao espaço original da imagem (frequência no tempo).
+
+O valor de brilho médio da imagem, isto é, o componente de frequência zero, é mostrado no centro da imagem transformada.
+
+[LinkFourier]: https://adenilsongiovanini.com.br/blog/transformada-de-fourier-o-que-e/
+[Outra fonte]: https://treinamentomaratona.wordpress.com/2016/06/08/aula-1-problema-filtragem-de-imagens/
+
+### Fourier videos
+
+- [All Types of Fourier Transforms in Python][Fourier Transforms] + [Code][LinkCode]
+- [Denoising Data with FFT - Python][denoise]
+- [Wavelets: a mathematical microscope][wavelets]
+- [Python Tutorial: Learn Scipy - Fast Fourier Transform (scipy.fftpack) in 17 Minutes][fft]
+
+[Fourier Transforms]: https://youtu.be/GKsCWivmlHg
+[LinkCode]: https://github.com/lukepolson/youtube_channel/blob/main/Python%20Tutorial%20Series/fourier_transform1.ipynb
+[denoise]: https://youtu.be/s2K1JfNR7Sc
+[wavelets]: https://youtu.be/jnxqHcObNK4
+[fft]: https://youtu.be/b06pFMIRO0I
+
+## Aula 17 - 02/05/23 - 1/4 - [14h25, 16h13]
+
+### Offtopic Aula 17
+
+- Luiz Velho não gostava de Antonia porque ela era rebelde
+- [Local onde Rivera estudou][LinkVisgraf]
+- Ele tinha uma sala no impa e outra na PUC
+- Poderíamos usar desvio padrão para descobrir bordas
+- "Cada maluco também, né?" ao falar sobre um italiano que se interessou por quaternions
+
+[LinkVisgraf]: https://www.visgraf.impa.br/people/
+
+### Slide aula 17
+
+#### Filtro de Gabor (17)
+
+##### Filtro decomposto em componentes reais e imaginários (17)
+
+<!-- Mais equações -->
+$$
+G_{imag}(x,y,f,\theta, \sigma) = \exp{ \left( \right) }
+$$
+FALTA COISA
+$$
+G_{real}(x,y,f,\theta, \sigma) = \exp{ \left( \right) }
+$$
+
+Filtro passa banda: G = Fourier(W) * Fourier(V)
+
+Realça as senoides com frequências em torno de f, suprimindo seus ruídos.
+
+---
+
+Uma das dificuldades para utilização do filtro de Gabor é a escolha ou obtenção de seus parâmetros.
+
+- F: Frequência relação espessura das linhas
+  - F grande -> insere ruído
+  - F pequeno -> entrelaçam linhas
+- $\theta$: caracteriza orientação do filtro
+  - Ângulo em direção das linahs
+- $\sigma$ largura modula o filtro
+  - Controla o tamanho da banda passante
+  - Efeito no realce das linhas
+  - $\sigma$ grande elimina ruídos mas não realça detalhes
+  - $\sigma$ pequeno não elimina ruídos mas realça detalhes
+
+<!-- Imagens -->
+
+---
+
+<!-- Imagens -->
+
+---
+
+<!-- Imagens -->
+
+---
+
+#### Filtragem do Domínio Espacial
+
+> "Operam diretamente sobre os pixels, normalmente utilizando operações de convolução com máscaras
+
+- Imagem $f$, no pixel $(x_i, y_i)$,
+convolução com $h$.
+
+$$
+g[x,y] =
+\sum^{n}_{i=1}
+\sum^{m}_{j=1}
+f[x_i,y_j].h[i, j]
+$$
+
+Descrição da imagem
+
+- Imagem original NxM - f(x,y) ->
+- Pixels que contribuem para o novo pixel ->
+- Filtro h(i,j) ->
+- Imagem final NxM - g(x,y)
+
+Pseudo-código:
+
+```python <!-- Não é python -->
+""" Pseudo código """
+
+Kernel = [
+  [a, b, c],
+  [d, e, f],
+  [g, h, i],
+]
+
+k_x = len(Kernel[0])
+k_y = len(Kernel)
+
+def get_new_imagem():
+  m = len(image_x)
+  m = len(image_y)
+  g = cria_imagem()
+  for(x: [1, ..., m]): # Loop imagem
+    for(y: [1, ..., n]): # Loop imagem
+      S = 0
+      for(i: [0, ..., len(kernel_x)]): # Loop Kernel
+        for(j: [0, ..., len(kernel_y)]): # Loop Kernel
+          S += f[x-k_x+i,y-k_y+j]*h[i,j]
+      g(x,y) = Opera(S)
+  return g
+```
+
+<!-- Imagem -->
+
+---
+
+#### Filtros Lineares e Não Lineares
+
+<!-- Os filtros geralmente serão os kernels. -->
+
+- *Filtros lineares*: somas ponderadas das intensidades de pixels ao longo da imagem
+- *Filtros não-lineares*: qualquer filtro que não é uma soma ponderada de pixels
+
+- Contorno
+  - Mudanças locais de intensidade na imagem
+- Regiões ou objetos
+  - Patamares mais ou menos constantes de tons e cores.
+- Fronteira
+  - Intensidade da imagem, $f(x_i ,y_i)$, varia bruscamente
+
+##### Filtros lineares: Filtros Passa Baixa - Filtros de Suavização (17)
+
+Objetivos
+
+- Suavizar a imagem
+  - redução das variações de intensidade nos patamares
+- Atenuar as altas frequências
+  - transições abruptas
+- Minimizar ruídos
+
+###### Filtro de média
+
+Máscara de convolução $n x n$ com seus coeficientes iguais a 1 dividido por $n^2$
+
+$$
+Z_3 = \frac{1}{3^2}
+\begin{bmatrix}
+  1 && 1 && 1 \\
+  1 && 1 && 1 \\
+  1 && 1 && 1 \\
+\end{bmatrix}_{3X3}
+$$
+$$
+Z_5 = \frac{1}{25}
+\begin{bmatrix}
+  1 && 1 && 1 && 1 && 1 \\
+  1 && 1 && 1 && 1 && 1 \\
+  1 && 1 && 1 && 1 && 1 \\
+  1 && 1 && 1 && 1 && 1 \\
+  1 && 1 && 1 && 1 && 1 \\
+\end{bmatrix}_{5X5}
+$$
+$$
+Z_7 = \frac{1}{7^2}
+\begin{bmatrix}
+  1 && 1 && 1 && 1 && 1 && 1 && 1 \\
+  1 && 1 && 1 && 1 && 1 && 1 && 1 \\
+  1 && 1 && 1 && 1 && 1 && 1 && 1 \\
+  1 && 1 && 1 && 1 && 1 && 1 && 1 \\
+  1 && 1 && 1 && 1 && 1 && 1 && 1 \\
+  1 && 1 && 1 && 1 && 1 && 1 && 1 \\
+  1 && 1 && 1 && 1 && 1 && 1 && 1 \\
+\end{bmatrix}_{7X7}
+$$
+
+<!-- Imagem -->
+
+###### Filtro Gaussiano (17)
+
+## Aula 18 - 04/05/23 - 1/4 - [14h43, 16h15]
+
+### Offtopic Aula 18
+
+- O espanhol cubano é o mais complicado de entender por ser mais rápido
+- "Rivera, você quer ganhar um dinheirinho a mais?"
+- Nano fóssil
+
+### Slide aula 18
+
+#### Filtros Lineares e Não Lineares (18)
+
+##### Filtros lineares: Filtros Passa Baixa - Filtros de Suavização
+
+###### Filtro Gaussiano
+
+O filtro é baseado em uma aproximação digital da função gaussiana.
+
+Em 1-D: <!-- Imagem -->
+
+$$
+G(x) = \frac{1}{\sigma \sqrt{2 \pi}} e^{\frac{-{(x)}^2}{2 \sigma^2}}
+$$
+
+Em 2-D: <!-- Imagem -->
+
+$$
+G(x) = \frac{1}{2 \pi \sigma^2 } e^{\frac{-(x^2 + y^2)}{2 \sigma^2}}
+$$
+
+---
+
+Gaussiana (aproximada) com $\sigma = 1$
+
+kernel de 5X5 <!-- Imagem -->
+
+$$
+Z = \frac{1}{273}
+\begin{bmatrix}
+  1 &&  4 &&  7 &&  4 && 1 \\
+  4 && 16 && 26 && 16 && 4 \\
+  7 && 26 && 41 && 26 && 7 \\
+  4 && 16 && 26 && 16 && 4 \\
+  1 &&  4 &&  7 &&  4 && 1 \\
+\end{bmatrix}
+$$
+
+kernel de 3X3 <!-- Imagem -->
+
+$$
+Z = \frac{1}{16}
+\begin{bmatrix}
+  1 && 2 && 1 \\
+  2 && 4 && 2 \\
+  1 && 2 && 1 \\
+\end{bmatrix}
+$$
+
+Maior dimensão do Kernel $\rightarrow$ Imagem menos nítida
+
+---
+
+###### Filtro de mediana
+
+- Tom do pixel central da janela é mediana da intensidade dos pixels da vizinhança (ordenada).
+- Dados $n$ elementos, a mediana $m$ é o elemento central dos $n$ elementos ordenados
+
+<!-- Imagem: -->
+
+$$
+\begin{bmatrix}
+  p1 &&
+  p2 &&
+  p3 &&
+  p4 &&
+  p5
+\end{bmatrix}
+\rightarrow
+mediana
+\rightarrow
+\begin{bmatrix}
+  p5 &&
+  p1 &&
+  p3 &&
+  p2 &&
+  p4
+\end{bmatrix}
+$$
+
+- Eficaz quando
+  - Ruído impulsivo
+  - Ruído sal e pimenta
+- Mantém os tons definidos na imagem
+
+<!-- Imagem -->
+
+###### Filtros de Ordem e de Moda
+
+- Filtro de ordem
+  - Maior valor de intensidade de uma vizinhança do *pixel f(x,y)*, dentro de uma janela da imagem, ordenados
+- Filtro de moda
+  - Escolhido um pixel mais frequente da vizinhança ordenada, dentro de uma janela da imagem, do *pixel(x,y)*
+
+###### Filtro de Média dos $k$ Vizinhos Selecionados
+
+- É um híbrido do método de filtragem pela média.
+- Selecionar k elementos entre os elementos da máscara
+  - Usa diferença absoluta entre o valor de cada elemento da máscara de filtragem e o ponto central
+
+<!-- Imagem -->
+
+##### Filtros Passa-Alta ou de Acentuação
+
+- Atenuam ou eliminam as baixas frequências, realçando as altas frequências.
+  - Usados para realçar os detalhes na imagem
+  - Destacam características como bordas, linhas, curvas e manchas
+  - Tornam mais nítidas as transições entre regiões diferentes, realçando o contraste
+
+Métodos de Filtros:
+
+- Gradiente ou derivada de imagens
+- Operador de Sobel
+- Roberts
+- Prewitt
+- Laplaciano
+- Laplaciando do Gaussiano
+- Canny
+
+###### Gradiente ou derivada de imagens
+
+<!-- Imagem -->
+Explicação da imagem:
+
+- Imagem: Faixa preta, faixa branca, faixa preta
+- onda do nível de branco indo de 0 a 255 a 0
+- primeira derivada que informa que teve primeiro uma rápida mudança de preto pra branco e depois uma rápida mudança de branco pra preto
+- segunda derivada informando a rápida mudança de subida e descida da primeira derivada, e depois uma mesma rápida subida e descida.
+
+O gradiente da função *f(x,y)*
+
+$$
+\nabla f =
+\begin{vmatrix}
+  G_x \\ G_y
+\end{vmatrix} =
+\begin{vmatrix}
+  \frac{\partial f}{\partial x} \\ \frac{\partial f}{\partial y}
+\end{vmatrix}
+\begin{cases}
+  Módulo\ do\ vetor:\
+  |\nabla f| = [G_{x}^{2}+G_{y}^{2}]^{1/2}
+  \\
+  Dire\c{c}ão\ do\ vetor:\
+  \alpha(x,y) = \arctan \frac{G_y}{G_x}
+  \\
+\end{cases}
+$$
+
+- Anotação JV:
+  - Gradiente: Raiz da soma dos quadrados das diferenças
+
+O gradiente pode ser aproximado por:
+
+$$
+\nabla [f(x,y)] \cong
+\left\{
+  [f(x,y) - f(x+1, y)]^2 +
+  [f(x,y) - f(x, y+1)]^2
+\right\}^{1/2}
+$$
+
+Máscara 3X3
+
+$$
+Z =
+\begin{bmatrix}
+  Z_1 && Z_2 && Z_3 \\
+  Z_4 && Z_5 && Z_6 \\
+  Z_7 && Z_8 && Z_9 \\
+\end{bmatrix}
+$$
+
+$$
+\nabla [f(x,y)] \cong
+\left|
+  (Z_7 + Z_8 + Z_9) -
+  (Z_1 + Z_2 + Z_3)
+\right| +
+\left|
+  (Z_3 + Z_6 + Z_9) -
+  (Z_1 + Z_4 + Z_7)
+\right|
+$$
+
+###### Operador de Sobel
+
+Variação horizontal
+
+$$
+\frac{\partial f(x,y)}{\partial x} =
+\frac{f(x+dx, y) - f(x,y)}{\partial x}
+$$
+
+Variação vertical
+
+$$
+\frac{\partial f(x,y)}{\partial y} =
+\frac{f(x, y+dx) - f(x,y)}{\partial y}
+$$
+
+Aplicação de duas máscaras:
+
+$$
+Z_h =
+\begin{bmatrix}
+  -1 && -2 && -1 \\
+   0 &&  0 &&  0 \\
+   1 &&  2 &&  1 \\
+\end{bmatrix}
+$$
+$$
+Z_v =
+\begin{bmatrix}
+  -1 && 0 && 1 \\
+  -2 && 0 && 2 \\
+  -1 && 0 && 1 \\
+\end{bmatrix}
+$$
+
+###### Filtro de Roberts
+
+Módulo do Gradiente aproximado
+
+$$
+|G| = \sqrt{G_x^2 + G_y^2}
+$$
+$$
+\alpha = \arctan
+\left(
+  \frac{G_y}{G_x}
+\right)
+$$
+
+Máscaras de convolução
+
+$$
+G_x =
+\begin{bmatrix}
+  1 &&  0 \\
+  0 && -1 \\
+\end{bmatrix}
+$$
+$$
+G_y =
+\begin{bmatrix}
+   0 && 1 \\
+  -1 && 0 \\
+\end{bmatrix}
+$$
+
+<!-- Imagem -->
+
+###### Filtro de Prewitt
+
+Tem o mesmo conceito de Sobel (sem o peso para o *pixel* mais central) e de Roberts
+
+$$
+G_x =
+\begin{bmatrix}
+  -1 && -1 && -1 \\
+   0 &&  0 &&  0 \\
+   1 &&  1 &&  1 \\
+\end{bmatrix}
+$$
+$$
+G_y =
+\begin{bmatrix}
+  -1 && 0 && 1 \\
+  -1 && 0 && 1 \\
+  -1 && 0 && 1 \\
+\end{bmatrix}
+$$
+
+$$
+\nabla f =
+|
+  (Z_7 + Z_8 + Z_9) -
+  (Z_1 + Z_2 + Z_3)
+| +
+|
+  (Z_3 + Z_6 + Z_9) -
+  (Z_1 + Z_4 + Z_7)
+|
+$$
+
+<!-- Imagem -->
+
+###### Filtro Laplaciano
+
+$$
+\nabla^2 f(x,y) =
+\frac{\partial^2}{\partial x^2} f(x,y) +
+\frac{\partial^2}{\partial y^2} f(x,y)
+$$
+
+Alguns filtros
+
+$$
+M_{L1} =
+\begin{bmatrix}
+   0 && -1 &&  0 \\
+  -1 &&  4 && -1 \\
+   0 && -1 &&  0 \\
+\end{bmatrix}
+$$
+$$
+M_{L2} =
+\begin{bmatrix}
+  -1 && -1 && -1 \\
+  -1 &&  8 && -1 \\
+  -1 && -1 && -1 \\
+\end{bmatrix}
+$$
+$$
+M_{L3} =
+\begin{bmatrix}
+   1 && -2 &&  1 \\
+  -2 &&  4 && -2 \\
+   1 && -2 &&  1 \\
+\end{bmatrix}
+$$
+
+###### Laplaciando do Gaussiano
+
+Não tem no slide
+
+###### Canny
+
+Não tem no slide
+
+#### Trabalho
+
+1. Modificar a implementação anexa de Fourier para aplicar passa baixa ou passa alta em imagem de seu interesse. Usar OpenCV e C
+2. Modificar e completar os programas de filtros aplicados na imagem de seu interesse (sobre a mesma figura)
+   1. Suavização
+      1. Filtro de média 3x3
+      2. Filtro Gaussiano 3x3
+   2. Acentuação
+      1. Gradiente
+      2. Sobel ou Prewit
+      3. Laplaciano L2
+
+** Será aplicado um teste em relação aos tópicos envolvidos neste trabalho
+Entregar 1 de dezembro
+
+## Aula 19 - 04/05/23 - 1/4 - [14h.., 16h..]
+
+## Aula 20 - 09/05/23 - 1/4 - [14h.., 16h..]
+
+## Aula 21 - 11/05/23 - 1/4 - [14h.., 16h..]
+
+## Aula 22 - 16/05/23 - 1/4 - [14h.., 16h..]
+
+## Aula 23 - 18/05/23 - 1/4 - [14h.., 16h..]
