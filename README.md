@@ -9,7 +9,15 @@
 - [ ] Estruturar README
 - [ ] Pedir permissão para professor(a)
 
-## Informações da disciplina:
+### Projetinhos
+
+- [ ] Espectro de Fourier em tempo real
+- [ ] Operadores de Kernel com Tabelas manualmente modificáveis em tempo reals
+- [ ] Progressão de clusters - K-means
+  - [ ] Usando seed padrão de randomização
+- [ ] Gerar um GIF ao usar o código de cluster migrando entre 1 e todas as tonalidades de cor de uma imagem
+
+## Informações da disciplina
 
 - Professor(a):
 - Ano cursado: 2023_1

@@ -1,0 +1,520 @@
+Extração de Características
+
+
+
+
+                      Rivera
+•Sistemas de análise de Imagens
+  •Reconhecimento de elementos e objetos
+    •Parâmetros quantificáveis
+       • Cor, posição, orientação, dimensões, textura, etc.
+   Imagem
+                      BD de
+Segmentação:          Padrões
+Separa objeto
+  ou padrão
+
+                                                  Reconhece
+Caracterização                   Classificador
+                                                   o Padrão
+
+
+    Etapas de um sistema de reconhecimento de padrões.
+             Segmentação
+Divisão da imagem em regiões que possuem o mesmo
+      conteúdo no contexto de uma aplicação.
+                      A segmentação baseada em:
+                     • Descontinuidades
+                         • Mudanças bruscas de tons
+                     • Similaridades
+                         • aspectos comuns com limiar
+                     • Limites ou bordas
+                     • Áreas ou regiões
+ Segmentação Baseada em Regiões
+Partição da imagem baseada no conteúdos de grupos de pixels.
+Premissas:
+(1) Homogeneidade da região (com tolerância)
+(2) Regiões delimitadas por fronteiras contínuas
+(3) Pontos que correspondem a uma única região
+(4) O conjunto de todas as regiões deve formar a imagem
+Técnicas:
+• Segmentação por crescimento de regiões
+• Segmentação por divisão e fusão de regiões
+• Segmentação por clusterização
+• Segmentação por janelas (windows)
+        Segmentação por crescimento de regiões
+• Iniciar a partir de um pixel ou um conjunto de pixels
+  (denominado de “semente”).
+• Para cada semente avalia-se o predicado dos pixels vizinhos
+  • Ex. cor RGB com menos de 5% da variação de 5 pixels
+    vizinhos
+• A agregação das regiões é feita quando o critério de similaridade
+  ou de decisão do predicado for verdadeiro.
+• Critério de parada bem definido
+     Segmentação por divisão e fusão de regiões
+• Subdivide uma imagem em quadtree
+   • Verificar se os pixels atendem a algum critério de
+     homogeneidade.
+• Os blocos que atenderem ao critério não serão mais divididos.
+• O bloco que não atender será subdividido em blocos menores.
+• Realiza a junção dos blocos vizinhos homogêneos.
+Segmentação por “clusterização”
+                  Algoritmo K-Means
+• Algoritmo de classificação não-supersionada.
+• O critério a ser minimizado é definido em função da
+  distância dos elementos em relação aos centros dos
+  agrupamentos.
+• Usualmente, a métrica é a distância Euclidiana.
+• Quanto menor for este valor, mais homogêneos serão os
+  objetos dentro de cada grupo e melhor será a partição.
+Algoritmo K-Means
+
+        Kmeans (X, k)
+
+
+   Select the k initial centers
+    {ci = Random(X)}i=1,…,k
+
+
+   Copy ci → cci, ∀𝑖 = 1, … , 𝑘
+
+ Clusters gerator with center cci
+       ∀𝑥 ∈ 𝑋 𝑖𝑛 𝐶1, … , 𝐶𝑘
+
+   Re-compute clusters center
+       𝑐𝑖 = 𝑀𝑒𝑎𝑛 𝐶𝑖 i=1,..,k
+
+
+   Varies = Compare (ci, cci)
+
+
+   Y         Varies?
+
+                   N
+       Solution {C1,…,Ck
+                          Outras técnicas
+• Filtragem no domínio espacial
+     Segmentação na própria imagem
+        • Sem transformações
+        • Uso de medidas calculadas na imagem
+• Filtragem no domínio da freqüência
+     No espaço de transformada de Fourier
+• Transformação para um espaço de medida específico
+    No espaço Euclidiano
+        • Transformação linear para outro espaço
+             – Ex. transformada de Hough, wavelets
+• Baseadas em Morfologia Matemática
+    Transformada watershed (divisor de águas)
+• Contornos ativos – ou modelos deformáveis
+     Snakes – extração de bordas de objetos da cena
+        • Contorno ajustado a curvas (splines)
+        • Inicialmente uma configuración inicial evolui até se ajustar ao objeto de
+          interese
+• 5/10
+• Luis
+• Yuri
+• Maria
+           Propriedades do Pixel
+
+
+Retangular ou quadrada. Três aspectos a considerar:
+•Vizinhança em Pixel (Vizinhança-4 e Vizinhança-8)
+•Medidas de Distância
+•Conectividade
+   * Propriedade de um pixel está conectado a outro)
+Vizinhança em Pixel (Vizinhança-4 e Vizinhança-8)
+
+   Quais são os vizinhos de um determinado pixel?
+   • Importante para segmentação e continuidade do objeto
+
+
+                                  vizinhança-4 de p - N4(p)
+
+
+
+                                  vizinhança-D de p – ND(p)
+
+
+
+
+                                  vizinhança-8 de p – N8(p)
+                          Medidas de Distância
+ Distância city-block, Manhatan ou quarteirão para e
+ distância Euclidiana para :
+                                      1
+                       n           rr
+      D( X i , X j ) =  xil − x jl          Xi, Xj vetor de elementos
+                        l =1       
+
+
+
+
+Distância Euclidiana      Distância Manhattan D(p,q) = Máx |xix–xjx|,|xiy–xjy|} ≤ 2
+≤ √8 do pixel central     D1 = |xix–xjx|+|xiy–xjy|
+                       Conectividade
+
+Dois pixels estão conectados se:
+• são adjacentes (N4(p) ou N8(p)); e,
+• atributos (níveis de cinza, texturas ou cores) similares.
+
+
+Níveis de conectividade:
+§ Conectividade de 4: q está em N4(p) e atributos iguais.
+§   Conectividade de 8: q está em N8(p) e atributos iguais.
+                Tipos de características
+  Qual
+                               Características
+escolher?
+
+                  De forma                       De aspecto
+
+
+  De contorno                 De regiões         Rugosidade
+                                                 Cor
+                                                 Textura
+
+
+   Dimensionais                Inerciais              Topológicas
+
+
+ Área                    Centro geométrico       Número de furos
+ Perímetro               Momento                 Número de Euler
+ Excentricidade          Orientação              Componentes conectados
+ Compacidade             Retângulo envolvente    Número de vértices
+ Raio máximo             Elipse ajustada
+ Raio mínimo
+      Análise de Componentes Principais (PCA)
+
+•Componentes
+   • principal representa melhor a distribuição dos dado
+   • secundária é perpendicular à componente principal.
+
+•Passos:
+   • Obter as n amostras
+   • Calcular a média
+   • Calcular a matriz de covariância
+   • Calcular os autovalores e autovetores da matriz de covariância
+   • Componente principal e secundaria: autovetores de maior e menor autovalor,
+     respectivamente.
+                Matriz de covariância
+
+A matriz de covariância para M amostras de vetores pi, com
+vetor médio m pode ser calculada de acordo com:
+
+
+
+                        (xi − mx )(yi − m y )
+                       M
+                   1
+              Cx =
+                   M   i =1
+
+
+
+    O vetor médio pode ser calculado:
+
+                              M
+                               pi
+                     1
+                  m=
+                     M        i =1
+                                                          c_triple_real32 *obbtree_calcula_autovetores(c_triple_real32 *cov, c_real32
+                                                          *lambda)
+c_real32 *calcula_autovalores(c_triple_real32 *cov)       {
+{                                                                c_uint16 x, y; c_triple_real32 *xy; c_real32 m1, m2;
+      c_uint16 x, y; c_real32 *lambda; c_real32 m;              x =0; y =1;
+      lambda = aloca_array_real32((c_uint16)2);                 xy = aloca_array_triple_real32((c_uint16)3);
+      x =0; y =1;                                                if((lambda[0] == 0.0f) && (lambda[1] == 0.0f)) // se for circulo
+      m = sqrt(pow((cov[x][x] - cov[y][y]), 2)                  {
+               + 4.0f*pow(cov[x][y], 2));                              ca_scala_triple_real32(v_un_x, 1.0f, xy[0]); // vetor unitario (1,0)
+      lambda[0] = ((cov[x][x] + cov[y][y] + m) / 2.0f);                ca_scala_triple_real32(v_un_y, 1.0f, xy[1]); // vetor unitario (0,1)
+      lambda[1] = ((cov[x][x] + cov[y][y] - m) / 2.0f);         } else {
+      return lambda;                                                   xy[0][0] = (c_real32)(-1.0f * cov[x][y]);
+}                                                                      xy[0][1] = cov[x][x] - lambda[0];
+                                                                       xy[0][2] = 0.0f;
+                                                                        m1 = ca_modulo_triple_real32(xy[0]);
+                                                                       xy[1][0] = (c_real32)(-1.0f * cov[x][y]);
+                                                                       xy[1][1] = cov[x][x] - lambda[1];
+                                                                       xy[1][2] = 0.0f;
+                                                                        m2 = ca_modulo_triple_real32(xy[1]);
+                                                                        if(m1 > m2) {
+                                                                            m2 = (c_real32)1.0f / m1;
+                                                                            ca_scala_triple_real32(xy[0], m2, xy[0]);
+ Vetor caixa_retangular(float [][] cov)                                    xy[1][0] = (c_real32)(-1.0f * xy[0][1]);
+ {                                                                          xy[1][1] = xy[0][0];
+       calcula_matriz_covariancia_area(vetor pts)                      }     else   {
+       lambda = calcula_autovalores(cov);                                  m1 = (c_real32)1.0f / m2;
+       ordena_autovetores_para_eixos(lambda);                              ca_scala_triple_real32(xy[1], m1, xy[1]);
+       xy = calcula_autovetores(cov, lambda);                              xy[0][0] = (c_real32)(-1.0f * xy[1][1]);
+ }                                                                         xy[0][1] = xy[1][0];
+                                                                       }
+                                                                }
+                                                                return xy;
+                                                          }
+    Autoespaços , autovetores e autovalores
+
+Um vetor v é um autovetor de uma matriz quadrada M se
+
+              Mv=v
+
+Escalar  é autovalor de M associado ao autovetor v.
+         Descritores de forma
+Área e Retângulos envolventes
+      É necessário que a imagem tinha sido segmentada
+ Perímetro, Alongamento e Retangularidade
+
+
+
+Perímetro - número de pixels conexos que constituem
+  o contorno da região.
+
+Alongamento - relação de lados do menor retângulo
+  que envolve o objeto.
+
+Retangularidade - relação entre a área do objeto e
+  área do menor retângulo que o envolve.
+      Excentricidade, diâmetro, raio máximo e
+                 mínimo do objeto
+
+
+Diâmetro de um objeto -            maior
+  distância entre 2 pontos deste objeto.
+Excentricidade - relação entre dois
+  pontos extremos do objeto que
+  passem pelo eixo maior e eixo
+  ortogonal.
+Raio máximo e mínimo do objeto -
+  distâncias máxima e mínima,
+  respectivamente, da borda ao centro
+  geométrico.
+                         Contornos
+
+
+
+
+                 (a)                      (b)
+Exemplo de aplicação do filtro de gradiente (b) para acentuar o
+ contorno em uma imagem de tomografia (a). Neste exemplo
+   foram realizados procedimentos para ligação de bordas.
+           Código da Cadeia
+
+
+
+
+             2
+                                           4
+                                       5
+                                                     3
+
+
+
+3            P             1   7               P         2
+
+
+
+
+                                   6                 1
+                                           0
+             0
+
+Vizinhança-4 de p, N4(p)           Vizinhança-8 de p, N8(p)
+   (a)                                 (b)
+Pontos onde o código se diferencia do vizinho.
+• 10/10
+• Maria
+• Luis
+• Yuri
+• Javier
+         Transformada de Hough
+
+
+  Transformar a imagem do espaço digital (x,y) para uma
+representação na forma dos parâmetros descritos pela curva
+            que se deseja encontrar na imagem
+
+
+
+
+ Etapas da aplicação da transformada de Hough para qualquer forma
+                             geométrica.
+Retas:
+
+         y = mx + g
+                                                        yh = m x h + g
+                                                               yp = m xp + g
+
+                                                              yq = m x q + g
+
+                                                              yr = m x r + g
+
+
+
+
+           espaço (x,y)           espaço de parâmetros(m,g)
+ • Cada ponto no espaço da imagem transforma-se em uma reta no
+   espaço de parâmetro: g = -mx + y.
+ • Para reta vertical m = 0 ➔ infinita (não funciona)
+Retas – forma polar:              r = x cos + y sin 
+
+   y
+        L: y=mo.x+co
+
+
+
+                                             r
+
+                                            ro
+
+   yp
+
+                 xp                                                       
+                              x
+
+
+
+
+Plano xy (espaço de imagem)               Plano r (espaço de parâmetros)
+
+
+   Cada ponto P(x,y) no espaço da imagem, corresponde a uma
+            senóide S(,) no espaço de parâmetros.
+    Algoritmo de Hough (para retas)
+
+1. Discretizar espaço de parâmetros S(θ, r)           y
+                                                              L
+   em (θmin , θmax) x (r min, rmax)
+                                                          cr         n= (cos θ, cos θ)
+    •   Matriz acumulador A de inteiros                    cθ
+                                                                           x
+2. Zerar A (valor inicial)
+3. Para cada pixel (x,y), com gradiente maior
+   que o limiar zero                            Espaço de imagem
+    •   Calcular as coordenadas (cθ, cr) de A
+                                                          r
+        restrita à linha desejada
+                                                              diag
+    •   Incrementar: A (cθ, cr) += 1
+4. Buscar o máximo local em A → (cθ, cr)        -90                         90
+                                                                                 θ
+5. Converter (cθ, cr) para espaço de imagem
+                                                              -diag
+
+
+                                                Espaço de parâmetros
+        Circulo: (x - a)2 + (y - b)2 = r2
+
+                                                                          r
+    y                                                                                        -n
+                           Xp   n = (cos , sen )
+
+
+
+                                                                                                   b
+                                x
+
+                                                                                 Xp
+                                                             a
+        Espaço de imagem
+                                                                          Espaço de parâmetros
+• Acumulador A(_,_,_)
+• 0  r  diag // diag diagonal do plano da imagem
+• 0  a, b  diag.
+                                                                 r
+Usando gradiente                                     b= y                    = y  r.cos( )
+                                                             1 + tan ( )
+                                                                      2
+ 
+ x
+    
+    (x − a )2 + ( y − b )2 = r 2                                r
+                                                     a=x                        = x  r.sin( )
+                                                             1+ 1
+                                                                    tan 2 ( )
+   Histograma de Gradientes Orientados
+
+• HOG (Histogram of Oriented Gradients)
+     Histograma local de gradientes
+         • Áreas regulares na imagem
+
+
+     Células                                             Descritor global
+ 8 x 8 pixels                                            x = (x1,.., x1)
+
+
+                                      Imagem: 10 x 10
+                                          Células
+
+          3 4 10 2 7 6 4 2 17 4 3 3
+                                       (x orientação)
+                                    Gradiente
+                                                       Kernel:
+
+                                                       No Eixo X: −1   0 1
+                                                                   1
+                                                       No Eixo Y: 0
+                                                                  −1
+
+
+
+Variação de intensidades (Altas frequências)
+Magnitude
+     𝑚 𝑥𝑖 , 𝑦𝑖 =   𝜕𝑥 𝑥𝑖 , 𝑦𝑖   2   + 𝜕𝑦 𝑥𝑖 , 𝑦𝑖   2
+
+
+Orientação
+                           𝜕𝑦 𝑥𝑖 , 𝑦𝑖
+        𝑎𝑛𝑔 𝑥𝑖 , 𝑦𝑖 = 𝑎𝑇𝑎𝑛
+                           𝜕𝑥 𝑥𝑖 , 𝑦𝑖
+             Processo
+
+
+              Calcular as
+               HOG de
+               todas as
+                células
+
+                 ang.
+
+
+
+
+3
+    2
+        1
+        16
+                    0 22,5 45 66,5   90 …… 360
+                               Normalização
+Variações de iluminação → variam os gradientes
+
+                                                            1       2
+
+                                                             3     4
+
+
+                                          Bloques
+
+
+
+
+         V1 = (x11, …, x1d, x21, …, x2d, x31, …, x3d, x41, …, x4d)
+     Vn1 = (x11, …, x1d, x21, …, x2d, x31, …, x3d, x41, …, x4d) / || V1 ||   Norma L2
+                                                  1
+       Norma L2:          𝑣 = 𝜀+σ          𝑥𝑖 2 2
+Vetor HOG
+
+
+
+
+        Concatenação
+            HOG = (x1, …, xn)
+Efeitos de Superposição
+ Reconhecimento de Padrões em
+           Imagens
+
+
+• Reconhecimento de Padrões
+• Classificação Supervisionada
+• Classificação Não Supervisionada
+• Redes Neurais Artificiais
+• Lógica Fuzzy
+

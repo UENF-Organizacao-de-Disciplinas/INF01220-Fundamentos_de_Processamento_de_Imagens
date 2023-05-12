@@ -1403,17 +1403,17 @@ Tem o mesmo conceito de Sobel (sem o peso para o *pixel* mais central) e de Robe
 $$
 G_x =
 \begin{bmatrix}
-  -1 && -1 && -1 \\
-   0 &&  0 &&  0 \\
-   1 &&  1 &&  1 \\
+  -1 && 0 && 1 \\
+  -1 && 0 && 1 \\
+  -1 && 0 && 1 \\
 \end{bmatrix}
 $$
 $$
 G_y =
 \begin{bmatrix}
-  -1 && 0 && 1 \\
-  -1 && 0 && 1 \\
-  -1 && 0 && 1 \\
+  -1 && -1 && -1 \\
+   0 &&  0 &&  0 \\
+   1 &&  1 &&  1 \\
 \end{bmatrix}
 $$
 
@@ -1489,12 +1489,128 @@ Não tem no slide
 ** Será aplicado um teste em relação aos tópicos envolvidos neste trabalho
 Entregar 1 de dezembro
 
-## Aula 19 - 04/05/23 - 1/4 - [14h.., 16h..]
+## Aula 19 - 09/05/23 - 1/4 - [14h15, 15h59] - Semana 10
 
-## Aula 20 - 09/05/23 - 1/4 - [14h.., 16h..]
+### Slide 4 - Filtros de Imagens
 
-## Aula 21 - 11/05/23 - 1/4 - [14h.., 16h..]
+#### Filtros Lineares e Não Lineares (19)
 
-## Aula 22 - 16/05/23 - 1/4 - [14h.., 16h..]
+##### Filtros Passa-Alta ou de Acentuação (19)
 
-## Aula 23 - 18/05/23 - 1/4 - [14h.., 16h..]
+<!-- Repetiu -->
+
+### Slide 5 - Extração de Características
+
+- Sistema de análise de imagens
+  - Reconhecimento de elementos e objetos
+    - Parâmetros quantificáveis
+      - Cor, posição, orientação, dimensões, textura, etc.
+
+<!-- Imagem -->
+
+---
+
+Etapas de um sistema de reconhecimento de padrões
+
+[Imagem] ->
+[Segmentação: Separa objeto ou padrão] ->
+[Caracterização] -> [A]
+[(BD de Padrões)] -> [A]
+[A] ->
+[Classificador] ->
+[Reconhece o padrão]
+
+#### Segmentação (19)
+
+- Divisão da imagem em regiões que possuem o mesmo conteúdo no contexto de uma aplicação.
+- A segmentação baseada em
+  - Descontinuidades
+    - Mudanças bruscas de tons
+  - Similaridades
+    - Aspectos comuns com limiar
+  - Limites ou bordas
+  - Áreas ou regiões
+
+<!-- Imagem -->
+<!-- Imagem -->
+
+##### Segmentação baseada em regiões
+
+Partição da imagem baseada no conteúdos de grupos de pixels.
+
+- Premissas:
+  1. Homogeneidade da região (com tolerância)
+  2. Regiões delimitadas por fronteiras contínuas
+  3. Pontos que correspondem a uma única região
+  4. O conjunto de todas as regiões deve formar a imagem
+- Técnicas:
+  - Segmentação por crescimento de regiões
+  - Segmentação por divisão e fusão de regiões
+  - Segmentação por clusterização
+  - Segmentação por janelas (windows)
+
+##### Segmentação por crescimento de regiões
+
+- Iniciar a partir de um pixel ou um conjunto de *pixels* (denominado de "semente").
+- Para cada semente avalia-se o predicado dos *pixels* vizinhos
+  - Ex. cor RGB com menos de 5% da variação de 5 *pixels* vizinhos
+- A agregação das regiões é feita quando o critério de similaridade ou de decisão do predicado for verdadeiro.
+- Critério de parada bem definido
+
+<!-- Imagem -->
+
+##### Segmentação por divisão e fusão de regiões
+
+- Subdivide uma imagem em quadtree
+  - Verificar se os pixels atendem a algum critério de homogeneidade.
+- Os blocos que atenderem ao critério não serão mais divididos.
+- O bloco que não atender será subdividido em blocos menores.
+- Realiza a junção dos blocos vizinhos homogêneos.
+
+<!-- Imagem -->
+<!-- Imagem -->
+<!-- Imagem -->
+
+##### Segmentação por "Clusterização"
+
+-|$X_1, X_2, \dots, X_n$|-> [A]
+-|Parâmetros|-> [A]
+[A] -> C_1(X_4, X_7, ..., X32)
+[A] -> C_2(X_10, X_23, ..., X66)
+...
+[A] -> C_k(X_2, X_55, ..., Xn)
+
+[A]= [Algoritmo de Clusterização]
+
+<!-- Imagem -->
+
+## Aula 20 - 11/05/23 - 1/4 - [14h24, 16h00]
+
+### OffTopic (20)
+
+### Anotações de aula
+
+Início: Slide 5 - Extração de Características > Segmentação por clusterização > Algoritmo K-means
+
+Fim:Slide 5 - Extração de Características > Propeiedades do Pixel > Vizinhança em *Pixel*
+
+### Slide 5 - Extração de Características (20)
+
+#### Segmentação por clusterização
+
+##### Algoritmo K-means
+
+<!-- Anotações JV -->
+
+1. pega K valores aleatórios como meios
+2. atribui todos os pontos a qual é o ponto dentre os k pontos selecionados para o qual se está mais próximo
+3. depois de criado vetor dos K pontos definidos para uma das k médias, faz-se a média de todos os pontos que estão definidos a um dos K pontos
+4. Com essa nova média, é novamente executado o passo 2.
+
+<!-- Anotações JV -->
+
+## Aula 21 - 16/05/23 - 1/4 - [14h.., 16h..]
+
+## Aula 22 - 18/05/23 - 1/4 - [14h.., 16h..]
+
+## Aula 23 - 23/05/23 - 1/4 - [14h.., 16h..]

@@ -1,0 +1,479 @@
+Compressão de Imagem
+
+
+
+
+                 Rivera
+        Compressão de Imagem
+
+
+
+• Formas de diminuir a área de armazenamento dos dados,
+  reduzindo a quantidade de bits para representar os dados
+  (imagem, texto, ou arquivo qualquer).
+
+• Em compressão de imagem define-se como a forma
+  (algoritmos e métodos) de armazenar informações visuais
+  mais compactamente.
+                Redundâncias na Imagem
+Tipos de redundância em imagens:
+• De codificação de tons ou cor
+    ✓ níveis de cinza ou cores da imagem codificados com mais símbolos de
+      codificação do que o necessário.
+• Inter-pixel
+    ✓ resultantes das relações geométricas entre os objetos na imagem.
+• Espectral
+    ✓ valores espectrais, para a mesma posição na matriz de pixels de cada banda, são
+      correlacionados.
+
+• Psicovisuais
+    ✓ relacionadas ao fato do sistema visual humano não responder com a mesma
+      sensibilidade a todas as informações visuais.
+    Compressão de imagens e modelos
+               de cores
+
+•   YIQ (para transmissão de televisão);
+•   RGB (para monitores de computador colorido); CMY (para impressoras
+    coloridas;
+•   HSI (Hue, Saturation, Intensity ou matiz, saturação, intensidade);
+•   HSV (Hue, Saturation, Value) ou matiz, Saturação e Valor;
+•   YCBCR - compressão de imagens (usado no formato de imagens JPEG).
+           Medição do Desempenho
+Medida de desempenho -> taxa de compressão
+                  Tamanho(ImagComp) / tamanho(ImagOrig)
+
+
+• Técnicas sem perda
+    ✓ quanto maior a taxa de compressão melhor é a técnica de compressão.
+
+• Técnicas com perda
+    ✓ deve-se considerar também a qualidade do sinal ou dado reconstruído.
+
+
+• Critérios de fidelidade
+   ✓ se a remoção de dados causou perda de informação visual.
+   ✓ Podem ser: quantitativos ou subjetivos.
+       Critérios de fidelidade objetivos
+Sendo F(x, y) a imagem original e G(x, y) a imagem reconstruída, tem-se:
+    Erro Total ou absoluto:
+                               M −1 N −1
+                        et =    G( x, y) − F ( x, y)
+                               x =0 y =0
+
+    Raiz Quadrada do Quadrado da Média dos Erros:
+                                  1       M −1 N −1                           
+                        erms   =                   G( x, y ) − F ( x, y )    2
+
+                                  MN      x =0 y =0                           
+    Razão ou Relação Sinal Ruído:
+                         M −1 N −1                                 M −1 N −1
+
+                           G( x, y )
+                         x =0 y =0
+                                           2
+                                                                 G( x, y )
+                                                                   x =0 y =0
+                                                                               2
+
+
+             SNRrms =    M −1 N −1             =       M −1 N −1
+
+                            e( x, y )                   G( x, y ) − F ( x, y )
+                                           2                                           2
+
+                          x =0 y =0                    x =0 y =0
+Original    Comprida          Diferença   Diferença
+            (fractal) e       absoluta     relativa
+           reconstruída
+
+                Erro rms= 9,7622
+                SNR rms 10,4823
+               PSNR (dB)28,3398
+Métodos de Compressão de Imagem
+
+1. Compressão sem perda ou codificação de redundância
+    • Preserva todas as informações para reconstrução exata da imagem
+    • Explora a redundância entre pixels na codificação
+    • Ex. RLE (Run Lenght Encoding), LZ (Lempel Ziv), LZW (Lempel Ziv
+      Wech), algoritmo de Huffman (usadas nos formatos: PCX, PNG, GIF,
+      TIFF).
+
+2. Compressão com perda
+    • Há perda de dados durante a compressão da imagem
+    • É mais eficiente em relação à área final de armazenamento
+    • Não é admissível em aplicações médicas
+
+    • Degradação visual na imagem
+Compressão Simétrica e Assimétrica
+
+Classificação quanto ao tempo de compressão e descompressão.
+
+
+• Compressão simétrica:         tempo de compressão é igual ao de
+  descompressão
+    ✓ Transformadas de Wavelets (WT) e Transformadas de Cossenos (DCT -
+      Discrete Cosine Transform).
+
+• Compressão assimétrica:        tempo de compressão é bem maior que o
+  tempo de descompressão
+    ✓ fractal.
+                         Entropia da Imagem
+    Seja A = {a1, a2, ...,aJ} tonalidade de cinza ou tabela de cores de RGB
+    Entropia permite saber se uma imagem tem redundância
+                                            J
+                           H ( A) = −  P(a j ) • log P(a j )
+                                            j =1
+                                                                   Cor         Total        Probabilidade
+4     4      4     4     64    64    128   128
+                                                                   4           12           12/32=3/8
+4     4      4     4     64    64    128   128
+                                                                   16          4            4/32=1/8
+4     4      16    16    128   128   128   128
+                                                                   64          4            4/32=1/8
+4     4      16    16    128   128   128   128                     128         12           12/32=3/8
+
+Imagem 4x8=32 pixels em grayscale                               Probabilidades para cada nível de cinza
+
+ H(A) = – P(4) * log2(P(4)) – P(16) * log2 (P(16)) – P(64) * log2 (P(64)) – P(128) * log2 (P(128))
+
+ H(A) = –[3/8 * log2 (3/8) + 1/8 * log2 (1/8) + 1/8 * log2 (1/8) + 3/8 * log2 (3/8)] = 0.81 bits/pixel
+
+
+     Usados 4x8 pixels = 32 pixels ➔ ( 0.81 bits/pixel ) x (32 pixel) = 25 bits
+                                     De informação redundante.
+               Codificação de Huffman
+ • Redundância de codificação é eliminada
+ • Codificação de tamanho variável
+ • Atribui os códigos de tamanhos menores aos níveis de cinza
+   mais prováveis de ocorrer.
+
+Duas etapas:
+1. Redução
+    • Cria símbolos juntando dois de menores probabilidades a cada iteração.
+2. Codificação
+    • Símbolos reduzidos - começando com o de maior probabilidade que será
+      associado ao menor código e voltando para os originais.
+Exemplo:
+   Seja imagem M: 10x10 de 6 tons de cinza (a1 a2 a3 a4 a5 a6)
+
+   Primeira etapa: redução
+
+                                      1. Selec. de (a1 a2 a3 a4 a5 a6) 2 de menor prob.
+                                           • p(a4) + p(a6) = 1/16 = p(a7)
+                                      2. Selec. de (a1 a2 a3 a5 a7) 2 de menor prob.
+                                           • p(a3) + p(a7) = 5/32 = p(a8)
+                                      3. Selec. de (a1 a2 a5 a8) 2 de menor prob.
+                                           • p(a2) + p(a5) = 7/32 = p(a9)
+                                      4. Selec. de (a1 a8 a9) 2 de menor prob.
+                                           • p(a8) + p(a9) = 3/8 = p(a10)
+                                      5. Selec. de (a1 a10) 2 de menor prob.
+                                           • p(a1) + p(a10) = 1 = p(a11)
+Segunda etapa da codificação de Huffman
+
+   Informação   Probabilidade   Código
+       a1       5/8=20/32       0
+      a10       3/8=12/32       1
+       a9       7/32            10
+       a8       5/32            11
+       a5       1/8=4/32        101
+       a2       3/32            100
+       a3       3/32            110
+       a7       2/32            111
+       a4       1/32            1110
+       a6       1/32            1111
+
+
+
+Uma cadeia de códigos: 110 0 100 0 1111 110 0 101 0 1110
+É: a3 a1 a2 a1 a6 a3 a1 a5 a1 a4
+                              Codificação por LZW
+
+       Usa tabela de palavras contendo os símbolos que serão codificados.
+
+Routine LZW_COMPRESS                               Exemplo:
+STRING = get input char                        Input String = /WED/WE/WEE/WEB/WET
+WHILE there are still input chars DO           CharInp   CodeOut   NewCodeVal   NewString
+  CHAR = get input char
+                                               /W        /         256          /W
+  IF STRING+CHAR is in the string table THEN
+      STRING = STRING+CHAR                     E         W         257          WE
+  ELSE                                         D         E         258          ED
+     output the code for STRING
+     add STRING+CHAR to the string table       /         D         259          D/
+     STRING = CHAR                             WE        256       260          /WE
+  END of IF
+                                               /         E         261          E/
+END of WHILE
+output the code for STRING                     WEE       260       262          /WEE
+                                               /W        261       263          E/W
+
+/WED/WE/WEE/WEB/WET                            EB        257       264          WEB
+                                               /         B         265          B/
+ /WED-E-*-B*T
+                                               WET       260       266          /WET
+                                               EOF       T
+                              Decodificação LZW
+                                                  Input Codes: / W E D 256 E 260 261 257 B 260 T
+Routine LZW_DECOMPRESS
+                                                   Input/              STRING/                     New
+                                                             oldCod                 CHAR
+                                                  newCod               Ouput                  table entry
+Read OLD_COD                                      /          /         /            /         /
+output OLD_COD                                    W          /         W            W         256 = /W
+WHILE there are still input characters DO         E          W         E            E         257 = WE
+    Read NEW_COD                                  D          E         D            D         258 = ED
+
+    STRING = get translation of NEW_COD           256        D         /W           /         259 = D/
+
+    output STRING                                 E          256       E            E         260 = /WE
+
+    CHAR = first character in STRING              260        E         /WE          /         261 = E/
+
+    add OLD_COD + CHAR to the translation table   261        260       E/           E         262 = /WEE
+
+    OLD_COD = NEW_COD                             257        261       WE           W         263 = E/W
+                                                  B          257       B            B         264 = WEB
+END of WHILE
+                                                  260        B         /WE          /         265 = B/
+                                                  T          260       T            T         266 = /WET
+
+                                                        /WED/WE/WEE/WEB/WET
+           26/10
+
+• MARIA
+• Javier
+• Yuri
+     Transformada Discreta do Co-seno (DCT)
+Transforma discreta de co-senos em 2-D : Espacial → freqüência
+                         N −1   N −1
+                                                            (2 y + 1)i     (2 x + 1) j
+    T [i, j ] = c(i)c( j )                I [ y, x] cos               cos
+                         x =0    y =0                           2N              2N
+
+                                      2
+                                               i, j  0
+      onde    c(i), c( j ) =           N
+
+                                      1
+                                        N      i, j = 0
+
+
+
+Transformada Inversa IDCT 2-D:
+
+                  N −1 N −1
+                                                               (2 y + 1)i     (2 x + 1) j
+       I [ y, x] =            c(i )c( j )T [i, j ] cos                   cos
+                  i =0   j =0                                      2N              2N
+
+Essa compressão é usada no formato JPEG padrão com valor de N igual a 8.
+            Compressão por Wavelets
+Qualquer função, com período 2, pode ser reescrita como a
+soma dos termos da Série de Fourier:
+                                 
+                   a 0 +  (a n cos nt + bn sen nt )
+                              n =1
+
+
+Os coeficientes são calculados por:
+                         2
+
+                          f (t ) dt
+                     2
+                a0 =
+                     T   0
+
+                         2
+
+                           f (t ) cos(nt )dt
+                     2
+                an =
+                     T    0
+
+                         2
+
+                           f (t ) sen(nt )dt
+                     2
+                bn =
+                     T       0
+                     Análise de Wavelet
+• Ferramenta matemática para
+  decomposição em nível hierárquico em
+  aproximações (O) e detalhes (D).
+• O nível hierárquico em escala diática
+  (formado por potência de 2).
+• Descrição de uma função em termos
+  globais, mais termos que variam de                           O(1)
+  detalhes globais até detalhes finos.
+• A função em questão pode ser uma                      O(2)          D(2)
+  imagem, uma curva ou uma superfície.
+                                                 O(3)          D(3)
+
+
+
+                                          O(n)     D(n)
+        Transformada de Wavelet Contínua (TWC)
+A Transformada de Wavelets contínua em F(a,b) é:
+
+      F (a, b) =  f (t ) a ,b (t ) dt
+
+A função a,b (t ) é denominada wavelet:
+
+                 1 t −b 
+ a , b (t ) =          , a  0 , b 
+                  a  a 
+
+As funções wavelets são derivadas
+segundo os critérios:
+                        −1        2
+                             ˆ (u ) du  
+     C = 2       u        
+  Transformada de Wavelet Discreta
+                         t −b
+   a , b (t ) =                                               ( j, k )  Z 2
+                   1
+                            , a=2 ,b=k 2 ,
+                                    j      j
+
+                       a  a 
+
+
+Transformada Wavelet Haar Unidimensional
+
+                   Resolução   Valor Aprox.   Coef. Detalhes
+                   4           [ 9 7 3 5 ]
+                   2             [ 8 4 ]       [ 1   -1 ]              [ 6 2 1 -1 ]
+                   1              [ 6 ]           [ 2 ]
+                        Seqüência de aproximação e coeficientes de
+                                        detalhes.
+Aproximação V4
+
+                                               Espaço de Imagem
+                                                     V 0  V 1  V 2 ...
+
+Aproximação V3   Coeficientes de detalhes W3
+                                                  Base de V j
+
+                                                     i j ( x) =  (2 j x − i )
+
+
+Aproximação V2   Coeficientes de detalhes W2
+                                               Espaço de Detalhes
+                                                  W 0 V 0 = V 1
+
+Aproximação V1   Coeficientes de detalhes W1      W 1 V 1 = V 2
+
+                                                 Base de W j
+                                                       i j ( x) =  (2 j x − i )
+Aproximação V0   Coeficientes de detalhes W0
+                                                Bases Haar
+                       1 0  x  1                                wavelet mãe  i j ( x) =  (2 j x − i)
+     Base mãe  ( x) = 
+                       0 outro                                              1 0  x  1/ 2                    01                   11
+                                                                            
+                                                                    ( x) = − 1 1 / 2  x  1
+            i j ( x) =  (2 j x − i )                                      0
+                                                                                    Outro
+
+                          1
+       I(x) = 9 x                                                  I(x) = 8 x          1
+                          0              1/2     1
+                                                                                       0            1/2         1
+                                                                                       1
+              +7x
+                          1                                               +4x
+                                                                                       0            1/2         1
+                          0              1/2     1
+                                                                                       1
+                                                                          +1x
+                          1                                                            0            1/2         1
+              +3x
+                          0              1/2     1
+                                                                          -1x          1
+
+                          1                                                            0            1/2             1
+              +5x
+                          0              1/2     1
+
+
+
+I ( x) = c0202 ( x) + c1212 ( x) + c2222 ( x) + c3232 ( x)   I ( x) = c0101 ( x) + c1111 ( x) + d 01 01 ( x) + d11 11 ( x)
+                        Normalidade
+
+    Uma função base u(x) é normalizada se                        u u =. 1
+
+ Haar normalizado:
+
+            i (x ) := 2 2  (2 j x − i ), i = 0, ..., 2 j − 1
+                        j
+             j
+
+
+
+            i (x ) := 2 2  (2 j x − i ), i = 0, ..., 2 j − 1
+                        j
+              j
+
+
+
+
+Ex. para [6 2 1 -1], se tornam normalizados:
+                                     1     −1 
+                            6 2               
+                                      2     2
+                           Algoritmo de Transformada Wavelet Haar
+
+
+Decomposi ( C[1...2^j ])
+  C  c / sqrt (2 ^ j )    // normaliza coef inp   DecomposiStep ( C[1...2^j ])
+  g2^j                                              FOR i = 1 .. 2 ^ (j-1)
+  WHILE g >= 2 DO                                      C’  ( C[2i – 1] + C[2i] ) / sqrt (2)
+    DecomposiStep ( C [1 .. g ])                       C’[2^(j-1) + 1]  (C[2i – 1] - C[2i] ) / sqrt (2)
+    gg/2                                            END
+  END                                                C  C’
+
+
+
+
+ Reconstruc ( C[1...2^j ])
+                                                   ReconstrucStep ( C[1...2^j ])
+   g2
+                                                     FOR i = 1 .. 2 ^ (j-1)
+   WHILE g =< 2 ^ j DO
+                                                        C’[ 2i – 1 ]  ( C[ i ] + C[2 ^ (j-1) + i] ) / sqrt (2)
+      ReconstrucStep ( C [1 .. g ])                     C’[2i]  (C[ i ] - C[2 ^ (j –i) + i ] ) / sqrt (2)
+      g  2g                                         END
+   END                                               C  C’
+   C  C sqrt ( 2 ^ j ) // sem normalização
+Transformada de Wavelet de Haar bidimensional
+
+
+
+
+  (a) Decomposição padrão   (b) Decomposição não padrão.
+                          Compressão
+
+O objetivo da compressão é expressar um conjunto inicial de dados
+ usando outro conjunto menor, com ou sem perda de informação.
+
+ Seja a imagem f (x) expressa pela soma de funções base :
+                            m
+                f ( x ) =  ci u i ( x )
+                            i =1
+
+
+  Com m coeficientes ci.
+  A função que aproxima f(x), com menos coeficientes:
+                        ~
+                        m
+              f (x ) =  c~i u~i (x )  f (x )
+              ~
+                       i =1
+            Aproximações e Detalhes
+
+
+
+
+Árvore de Decomposição   Árvore de Decomposição Wavelet
+        Wavelet                    de um sinal
+

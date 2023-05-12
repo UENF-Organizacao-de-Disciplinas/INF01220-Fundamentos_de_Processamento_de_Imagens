@@ -1,0 +1,232 @@
+Textura
+
+
+
+
+          Rivera
+Textura
+• Padrão visual que possui algumas propriedades de homogeneidade que
+  não resultam simplesmente de uma cor ou intensidade. Aspecto visual da
+  superfície.
+• Relacionada com coeficientes de uniformidade, densidade, aspereza,
+  regularidade, intensidade, dentre outros, oriundos da probabilidade de
+  ocorrência de variações tonais.
+
+                                                       Área mínima: elemento
+                                                        básico de textura ou
+                                                           texel ou texton
+
+                                                      Textura não pode ser
+                                                      definida em um pixel,
+                                                      mas sim através e uma
+                                                      região de conjunto de
+                                                      pixels.
+                    Espaço de Textura
+
+
+• Pode ser vantajoso assumir
+  que o padrão da imagem se
+  repete fora desse intervalo
+   T (s, t) = Im [ (1 – s) N mod
+      N, t M mod M ]
+cor rgb do texel atribuída
+         ao pixel
+
+
+
+
+texel correspondente ao
+          ponto
+                           Mapeamento
+A especificação dos vértices dos polígonos e precedida da especificação do
+ponto da textura (texel) que ai mapeia.
+                                                                       (1, 1)
+
+     1
+
+
+      t
+
+
+      0        s       1                    (-1, -1)
+
+   glBindTexture(GL_TEXTURE_2D,texID);
+   glBegin(GL_QUADS);
+       glTexCoord2f(0,0); glVertex3f(-1.0f, -1.0f, 0.0f);
+       glTexCoord2f(1,0); glVertex3f( 1.0f, -1.0f, 0.0f);
+       glTexCoord2f(1,1); glVertex3f( 1.0f, 1.0f, 0.0f);
+       glTexCoord2f(0,1); glVertex3f(-1.0f, 1.0f, 0.0f);
+   glEnd();
+• A escolha de coordenadas no espaço das texturas e "livre".
+
+                                                      (0.2, 0.8)
+
+      1
+
+
+
+      t
+                                  (0.4, 0.2)
+
+
+                                                       (0.8, 0.4)
+          0      s            1
+
+          Espaço de textura               Espaço de objeto
+    Parametrização da Esfera
+                Função de mapeamento
+        z
+                x( , ) = sin  cos            = π t
+                y ( , ) = sin  sin           = 2π  s
+            φ
+                z ( , ) = cos
+
+
+                   y
+    
+                 Função de mapeamento inversa
+                                               arccos z
+x
+                  = arccos z             t=
+                                                  
+                               y
+                  = arctan                  arctan
+                                                    y
+                               x                    x
+                                          s=
+                                                2
+    Parametrização do Cilindro
+                 Função de mapeamento
+         z
+                 x = cos                = 2π  s
+                 y = sin               z =t
+                 z=z
+
+
+                 y
+     
+                 Função de mapeamento inversa
+x
+                  = arctan
+                            y                   
+                                        s=
+                            x              2π
+                 z=z                     t=z
+  Parametrizando Objetos Genéricos
+
+• O que fazer quando o objeto não comporta uma
+  parametrização natural?
+• Uma sugestão é usar um mapeamento em 2
+  estágios [Bier e Sloan]:
+   • Mapear textura sobre uma superfície simples
+     como cilindro, esfera, etc aproximadamente
+     englobando o objeto
+   • Mapear superfície simples sobre a superfície do
+     objeto. Pode ser feito de diversas maneiras
+       • Raios passando pelo centróide do objeto
+       • Raios normais à superfície do objeto
+       • Raios normais à superfície simples
+       • Raios refletidos
+                 Exemplos
+
+Parametrização   Projetada em   Projetada em
+    esférica       um cubo       um cilindro
+   Efeitos especiais com mapeamento de textura
+                           Bump mapping
+ • Utiliza texturas para perturbar a direção do vetor normal de cada
+   ponto da superfície (Blinn, 1978).
+      – Não modifica a forma da superfície.
+      – Modelo de iluminação usa o vetor normal modificado.
+
+
+
+
+Esfera com textura             Bump map             Esfera com textura difusa
+      difusa                                            e bump mapping
+         Efeitos especiais com mapeamento de textura
+                                  Bump mapping
+
+
+
+• Simula detalhes na superfície sem
+  a necessidade de criar geometria.
+• Por outro lado:
+    – Não produz silhuetas corretas.
+    – Não simula oclusão entre os
+      detalhes.
+    – Não simula sombras entre os
+      detalhes.
+  Efeitos especiais com mapeamento de textura
+                     Displacement mapping
+
+• Semelhante ao bump mapping, porém modifica a geometria.
+  – Cada texel do displacement map é um valor de deslocamento do
+    vértice ao longo do vetor normal.
+                 Característica da textura
+Entropía (E) da imagem: número avaliador da aleatoriedade
+
+          m         1 
+    E =   pi lg 2  
+                                 m: número texels na imagem
+        i =1         pi      pi: probabilidade de i-ésimo texel seja utilizada novamente
+
+
+                0  menos irregular … mais irregular ➔
+
+
+
+
+                           E=0                   E = 0.9149
+
+
+
+
+                   E = 5.8766            E = 5.9851            E = 6.2731
+                   Coeficiente de Hurst
+Geometria fractal em análise textural
+     • índice numérico para identificação
+
+
+        ln N
+ D=                N: número de partes de uma imagem I
+          1
+       ln        r: factor de escala
+          r
+                                                            N=9
+Hurst usado para dimenão fractal (DE):
+• Determinação da rugosidade de superfície terrestre
+• Classificação da imagem
+• Tipos de paisagens
+• Fraturas de superfícies
+• Desgastes, eroção, corroção, etc.
+
+                                                         Imagem 7 x 7
+                    Coeficiente de Hurst
+ • Determinar: ∆g → maior diferença de nível de cinza para cada classe
+    • Buscar o maior e menor tom da região
+        • determinar a diferença por vez
+• Obter os logaritmos de cada diferença
+• Obter ajuste da reta y = bx + a
+
+                n ln d ln g −  ln d  ln g
+           b=
+                    n (ln d ) −  (ln d )
+                              2            2
+
+
+
+
+                a=
+                    ln g
+                           −b
+                               ln d
+                        n           n
+A reta neste caso tem a
+equação: y =
+1,2229x+3,1952.
+Coeficiente de Hurst:
+inclinação da reta,
+b=1,2229.
+     Coeficiente de Hurst: inclinação da reta, b=1,2229.
+De segmento de imagem com C. de Hurst define a mesma altura
+
