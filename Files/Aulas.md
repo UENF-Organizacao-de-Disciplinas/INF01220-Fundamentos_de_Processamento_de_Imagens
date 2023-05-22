@@ -1,12 +1,14 @@
 # Slides
 
-## Slide 1 - Fundamentos de Pocessamento de Imagens
+## Consertar depois
 
-## Slide 2 - Visão Computacional
+### Slide 1 - Fundamentos de Pocessamento de Imagens
 
-## Slide 3 - Operações em Imagens
+### Slide 2 - Visão Computacional
 
-## Slide 4 - Filtros de Imagens
+### Slide 3 - Operações em Imagens
+
+### Slide 4 - Filtros de Imagens
 
 ### Slide 5 - Extração de Características
 
@@ -21,13 +23,18 @@
 
 Etapas de um sistema de reconhecimento de padrões
 
-[Imagem] ->
-[Segmentação: Separa objeto ou padrão] ->
-[Caracterização] -> [A]
-[(BD de Padrões)] -> [A]
-[A] ->
-[Classificador] ->
-[Reconhece o padrão]
+```mermaid
+graph LR;
+id1[Imagem]
+id2[Segmentação: Separa objeto ou padrão]
+id3[Caracterização]
+id4[(BD de Padrões)]
+id5[Classificador]
+id6[Reconhece o padrão]
+
+id1 --> id2 --> id3
+id3 & id4 --> id5 --> id6
+```
 
 #### Segmentação (19)
 
@@ -103,15 +110,20 @@ Partição da imagem baseada no conteúdos de grupos de pixels.
 ---
 
 ```mermaid
-(Kmeans (X, k)) --
-[Select the k initial centers - {ci = Random(X)}_{i=1,...,k}] --
-[Copy ci → cci, ∀𝑖 = 1, ..., 𝑘] --
-[Clusters gerator with center cci - ∀𝑥 ∈ 𝑋 𝑖𝑛 𝐶1, … , 𝐶𝑘] --
-[Re-compute clusters center - 𝑐𝑖 = 𝑀𝑒𝑎𝑛 𝐶𝑖 i=1, ..., k] --
-[Varies = Compare (ci, cci)] -->
-{Varies} -|Y|-> [Copy]
-{Varies} -|N|-> (Solution)
-(Solution {C_1,...,C_k})
+flowchart TB;
+
+id1((Kmeans X, k))
+id2[Select the k initial centers - ci = Random X _ i=1,...,k ]
+id3[Copy ci -> cci, Para todo i = 1, ..., k]
+id4[Clusters gerator with center cci - Para todo x \in X in C1, ... , Ck]
+id5[Re-compute clusters center - ci = Mean Ci i=1, ..., k]
+id6[Varies = Compare ci, cci]
+id7[[Varies]]
+id8((Solution C_1,...,C_k))
+
+id1 --> id2 --> id3 --> id4 --> id5 --> id6 -->
+id7 -->|Y| id3
+id7 -->|N| id8
 ```
 
 #### Outras técnicas
@@ -179,7 +191,7 @@ $$
 #### Conectividade
 
 - Dois *pixels* estão conectados se:
-  - são adjacentes ($N4(p)$ ou $N8(p)$); e,
+  - são adjacentes ($N_4(p)$ ou $N_8(p)$); e,
   - atributos (níveis de cinza, texturas ou cores) similares.
 - Níveis de conectividade:
   - **Conectividade de 4**: $q$ está em $N_4(p)$ e atributos iguais.
@@ -189,162 +201,236 @@ $$
 
 Qual escolher?
 
-<!-- Árvore -->
 ```mermaid
-[Características] -- [De aspecto]
-[De aspecto] -- [Rugosidade, Cor, Textura]
-[Características] -- [De forma]
-[De forma] -- [De contorno]
-[De forma] -- [De regiões]
-[De regiões] -- [Dimensionais]
-[De regiões] -- [Inerciais]
-[De regiões] -- [Topológicas]
-[Dimensionais] -- [Área, Perímetro, Excentricidade, Compacidade, Raio máximo, Raio mínimo]
-[Inerciais] -- [Centro geométrico, Momento, Orientação, Retângulo envolvente, Elipse ajustada]
-[Topológicas] -- [Número de furos, Número de Euler, Componentes conectados, Número de vértices]
+flowchart LR
+    A1[Características]
+    B1[De forma]
+    B2[De aspecto]
+    C1[De contorno]
+    C2[De regiões]
+    C3[Rugosidade, Cor, Textura]
+    D1[Dimensionais]
+    D2[Inerciais]
+    D3[Topológicas]
+    E1[Área, Perímetro, Excentricidade, Compacidade, Raio máximo, Raio mínimo]
+    E2[Centro geométrico, Momento, Orientação, Retângulo envolvente, Elipse ajustada]
+    E3[Número de furos, Número de Euler, Componentes conectados, Número de vértices]
+
+    A1 --> B1 & B2;
+    B1 --> C1 & C2;
+    B2 --> C3;
+    C2 --> D1 & D2 & D3;
+    D1 --> E1;
+    D2 --> E2;
+    D3 --> E3;
 ```
 
 #### Análise de Componentes Principais (PCA)
 
-- Componentes
-- principal representa melhor a distribuição dos dado
-- secundária é perpendicular à componente principal.
+- **Componentes**
+  - **principal** representa melhor a distribuição dos dado
+  - **secundária** é perpendicular à componente principal.
 
 - Passos:
-- Obter as n amostras
-- Calcular a média
-- Calcular a matriz de covariância
-- Calcular os autovalores e autovetores da matriz de covariância
-- Componente principal e secundaria: autovetores de maior e menor autovalor,
-respectivamente.
+  - Obter as $n$ amostras
+  - Calcular a média
+  - Calcular a matriz de covariância
+  - Calcular os autovalores e autovetores da matriz de covariância
+  - Componente principal e secundaria: autovetores de maior e menor autovalor, respectivamente.
 
 #### Matriz de covariância
 
-A matriz de covariância para M amostras de vetores pi, com
-vetor médio m pode ser calculada de acordo com:
+A matriz de covariância para $M$ amostras de vetores $P_i$, com o vetor médio $m$ pode ser calculada de acordo com:
 
-#### O vetor médio pode ser calculado
+$$
+C_x = \frac{1}{M} \sum^{M}_{i=1} (x_i -m_x)(y-i - m_y)
+$$
+
+O vetor médio pose ser calculado:
+
+$$
+m = \frac{1}{M} \sum^{M}_{i=1} p_i
+$$
+
+---
 
 ```c
-c_triple_real32 *obbtree_calcula_autovetores(c_triple_real32 *cov, c_real32
-*lambda)
+
 c_real32 *calcula_autovalores(c_triple_real32 *cov) {
-{ c_uint16 x, y; c_triple_real32 *xy; c_real32 m1, m2;
-c_uint16 x, y; c_real32 *lambda; c_real32 m; x =0; y =1;
-lambda = aloca_array_real32((c_uint16)2); xy = aloca_array_triple_real32((c_uint16)3);
-x =0; y =1; if((lambda[0] == 0.0f) && (lambda[1] == 0.0f)) // se for circulo
-m = sqrt(pow((cov[x][x] - cov[y][y]), 2) {
-+ 4.0f*pow(cov[x][y], 2)); ca_scala_triple_real32(v_un_x, 1.0f, xy[0]); // vetor unitario (1,0)
-lambda[0] = ((cov[x][x] + cov[y][y] + m) / 2.0f); ca_scala_triple_real32(v_un_y, 1.0f, xy[1]); // vetor unitario (0,1)
-lambda[1] = ((cov[x][x] + cov[y][y] - m) / 2.0f); } else {
-return lambda; xy[0][0] = (c_real32)(- 1.0f * cov[x][y]);
-} xy[0][1] = cov[x][x] - lambda[0];
-xy[0][2] = 0.0f;
-m1 = ca_modulo_triple_real32(xy[0]);
-xy[1][0] = (c_real32)(- 1.0f * cov[x][y]);
-xy[1][1] = cov[x][x] - lambda[1];
-xy[1][2] = 0.0f;
-m2 = ca_modulo_triple_real32(xy[1]);
-if(m1 > m2) {
-m2 = (c_real32)1.0f / m1;
-ca_scala_triple_real32(xy[0], m2, xy[0]);
-Vetor caixa_retangular(float [][] cov) xy[1][0] = (c_real32)(- 1.0f * xy[0][1]);
-{ xy[1][1] = xy[0][0];
-calcula_matriz_covariancia_area(vetor pts) } else {
-lambda = calcula_autovalores(cov); m1 = (c_real32)1.0f / m2;
-ordena_autovetores_para_eixos(lambda); ca_scala_triple_real32(xy[1], m1, xy[1]);
-xy = calcula_autovetores(cov, lambda); xy[0][0] = (c_real32)(- 1.0f * xy[1][1]);
-} xy[0][1] = xy[1][0];
+  c_uint16 x, y; c_real32 *lambda; c_real32 m;
+  lambda = aloca_array_real32((c_uint16)2);
+  x = 0; y = 1;
+  m = sqrt(pow((cov[x][x] - cov[y][y]), 2)
+  + 4.0f*pow(cov[x][y], 2));
+  lambda[0] = ((cov[x][x] + cov[y][y] + m) / 2.0f);
+  lambda[1] = ((cov[x][x] + cov[y][y] - m) / 2.0f);
+  return lambda;
 }
+
+Vetor caixa_retangular(float [][] cov) {
+  calcula_matriz_covariancia_area(vetor pts)
+  lambda = calcula_autovalores(cov);
+  ordena_autovetores_para_eixos(lambda);
+  xy = calcula_autovetores(cov, lambda);
 }
-return xy;
+
+c_triple_real32 *obbtree_calcula_autovetores(c_triple_real32 *cov, c_real32 *lambda) {
+  c_uint16 x, y; c_triple_real32 *xy; c_real32 m1, m2;
+  x = 0; y = 1;
+  xy = aloca_array_triple_real32((c_uint16)3);
+  if((lambda[0] == 0.0f) && (lambda[1] == 0.0f)){ // se for circulo
+    ca_scala_triple_real32(v_un_x, 1.0f, xy[0]);  // vetor unitario (1,0)
+    ca_scala_triple_real32(v_un_y, 1.0f, xy[1]);  // vetor unitario (0,1)
+  } else {
+    xy[0][0] = (c_real32)(-1.0f * cov[x][y]);
+    xy[0][1] = cov[x][x] - lambda[0];
+    xy[0][2] = 0.0f;
+    m1 = ca_modulo_triple_real32(xy[0]);
+    xy[1][0] = (c_real32)(-1.0f * cov[x][y]);
+    xy[1][1] = cov[x][x] - lambda[1];
+    xy[1][2] = 0.0f;
+    m2 = ca_modulo_triple_real32(xy[1]);
+    if(m1 > m2) {
+      m2 = (c_real32)1.0f / m1;
+      ca_scala_triple_real32(xy[0], m2, xy[0]);
+      xy[1][0] = (c_real32)(-1.0f * xy[0][1]);
+      xy[1][1] = xy[0][0];
+    } else {
+      m1 = (c_real32)1.0f / m2;
+      ca_scala_triple_real32(xy[1], m1, xy[1]);
+      xy[0][0] = (c_real32)(-1.0f * xy[1][1]);
+      xy[0][1] = xy[1][0];
+    }
+  }
+  return xy;
 }
 ```
 
-#### Autoespaços , autovetores e autovalores
+#### Autoespaços, autovetores e autovalores
 
-Um vetor v é um autovetor de uma matriz quadrada M se
+Um vetor $v$ é um **autovetor** de uma matriz quadrada $M$ se $Mv = \lambda v$
 
-Escalar - é autovalor de M associado ao autovetor v.
+Escalar $\lambda$ é **autovalor** de $M$ associado ao autovetor $v$.
+
+<!-- Imagem -->
 
 #### Descritores de forma
 
 Área e Retângulos envolventes
-É necessário que a imagem tinha sido segmentada
+
+É necessário que a imagem seja segmentada
+
+<!-- Imagens -->
 
 #### Perímetro, Alongamento e Retangularidade
 
-Perímetro - número de pixels conexos que constituem
-o contorno da região.
-
-Alongamento - relação de lados do menor retângulo
-que envolve o objeto.
-
-Retangularidade - relação entre a área do objeto e
-área do menor retângulo que o envolve.
+**Perímetro**: número de *pixels* conexos que constituem o contorno da região.
+**Alongamento**: relação de lados do menor retângulo que envolve o objeto.
+**Retangularidade**: relação entre a área do objeto e área do menor retângulo que o envolve.
 
 #### Excentricidade, diâmetro, raio máximo e mínimo do objeto
 
-Diâmetro de um objeto - maior
-distância entre 2 pontos deste objeto.
-Excentricidade - relação entre dois
-pontos extremos do objeto que
-passem pelo eixo maior e eixo
-ortogonal.
-Raio máximo e mínimo do objeto -
-distâncias máxima e mínima,
-respectivamente, da borda ao centro
-geométrico.
+**Diâmetro de um objeto**: maior distância entre 2 pontos deste objeto.
+**Excentricidade**: relação entre dois pontos extremos do objeto que passem pelo eixo maior e eixo ortogonal.
+**Raio máximo e mínimo do objeto**: distâncias máxima e mínima, respectivamente, da borda ao centro geométrico.
+
+<!-- Imagem -->
 
 #### Contornos
 
-(a) (b)
-Exemplo de aplicação do filtro de gradiente (b) para acentuar o
-contorno em uma imagem de tomografia (a). Neste exemplo
-foram realizados procedimentos para ligação de bordas.
+<!-- Imagens -->
+
+Exemplo de aplicação do filtro de gradiente (b) para acentuar o contorno em uma imagem de tomografia (a). Neste exemplo foram realizados procedimentos para ligação de bordas.
 
 #### Código da Cadeia
 
-Vizinhança- 4 de p, N4(p) Vizinhança- 8 de p, N8(p)
+<!-- Imagem -->
+<!-- Imagem -->
 
-#### (a) (b)
+Vizinhança-4 de $p$, $N4(p)$
+Vizinhança-8 de $p$, $N8(p)$
+
+---
+
+<!-- Imagem -->
+<!-- Imagem -->
 
 Pontos onde o código se diferencia do vizinho.
 
 #### Transformada de Hough
 
-Transformar a imagem do espaço digital (x,y) para uma
-representação na forma dos parâmetros descritos pela curva
-que se deseja encontrar na imagem
-Etapas da aplicação da transformada de Hough para qualquer forma
-geométrica.
+Transformar a imagem do espaço digital $(x,y)$ para uma representação na forma dos parâmetros descritos pela curva que se deseja encontrar na imagem
+
+```mermaid
+graph LR;
+id1[Identificar fórmula a ser encontrada]
+id2[Aplicar a fórmula para cada pixel aceso na imagem]
+id3[Incrementar a posição da matriz de parâmetros que satisfizer a fórmula]
+
+id1 --> id2 --> id3
+```
+
+Etapas da aplicação da transformada de Hough para qualquer forma geométrica.
 
 #### Retas
 
-y = mx + g
-yh = m x h + g
-yp = m xp + g
+$y = mx+g$
 
-yq = m x q + g
+<!-- Imagem -->
+<!-- Imagem -->
 
-yr = m x r + g
-espaço (x,y) espaço de parâmetros(m,g)
+$y_h = m x_h + g$
+$y_p = m x_p + g$
+$y_q = m x_q + g$
+$y_r = m x_r + g$
 
-- Cada ponto no espaço da imagem transforma- se em uma reta no espaço de parâmetro: g = - mx + y.
-- Para reta vertical m = 0 ➔ infinita (não funciona)
+espaço (x,y)
+espaço de parâmetros(m,g)
 
-#### Retas – forma polar: r = x cos + y sin
+- Cada ponto no espaço da imagem transforma- se em uma reta no espaço de parâmetro: $g = - mx + y$.
+- Para reta vertical $m = 0 \rightarrow$ infinita (não funciona)
 
-Plano xy (espaço de imagem) Plano r (espaço de parâmetros)
-Cada ponto P(x,y) no espaço da imagem, corresponde a uma
-senóide S(,) no espaço de parâmetros.
+##### forma polar
 
-#### Algoritmo de Hough (para retas)
+$r = x cos\theta + y sin\theta$
 
-#### Circulo: (x - a)2 + (y - b)2 = r2
+Plano xy (espaço de imagem) <!-- Imagem -->
+Plano $\theta r$ (espaço de parâmetros) <!-- Imagem -->
 
-Espaço de imagem
-Espaço de parâmetros
+Cada ponto $P(x,y)$ no espaço da imagem, corresponde a uma senóide $S(\rho, \theta)$ no espaço de parâmetros.
+
+##### Algoritmo de Hough (para retas)
+
+Espaço de imagem <!-- Imagem -->
+Espaço de parâmetros <!-- Imagem -->
+
+1. Discretizar espaço de parâmetros $S(\theta, r)$ em $(\theta_{min} , \theta_{max}) x (r_min, r_max)$
+   - Matriz acumulador A de inteiros
+2. Zerar A (valor inicial)
+3. Para cada *pixel(x,y)*, com gradiente maior que o limiar zero
+   - Calcular as coordenadas $(c\theta, cr)$ de $A$ restrita à linha desejada
+   - Incrementar:  $A (c\theta, cr) += 1$
+4. Buscar o máximo local em $A \rightarrow (c\theta, cr)$
+5. Converter $(c\theta, cr)$ para espaço de imagem
+
+#### Círculo: $(x - a)^2 + (y - b)^2 = r^2$
+
+Espaço de imagem <!-- Imagem -->
+Espaço de parâmetros <!-- Imagem -->
+
+- Acumulador $A(\_, \_ , \_)$
+- $0 \leq r \leq diag$
+  - diag = Diagonal do plano da imagem
+- $0 \leq a, b \leq diag$
+
+Usando gradiente:
+
+$$
+\frac{\partial}{\partial x}
+\left[
+  (x-a)^2 + (y-b)^2 = r^2
+\right]
+$$
 
 #### Histograma de Gradientes Orientados
 
@@ -575,7 +661,7 @@ vértice ao longo do vetor normal.
 Entropía (E) da imagem: número avaliador da aleatoriedade
 
 m: número texels na imagem
-i =1   pi  pi: probabilidade de i- ésimo texel seja utilizada novamente
+i =1  pi  pi: probabilidade de i- ésimo texel seja utilizada novamente
 0  menos irregular … mais irregular ➔
 E=0 E = 0.9149
 E = 5.8766 E = 5.9851 E = 6.2731

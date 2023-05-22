@@ -158,7 +158,7 @@ Paramos aqui
 
 ## Aula 4 - 16/03/23 - 1/4 - [14h27, 16h01]
 
-### OffTopic
+### OffTopic (4)
 
 Fernando Linhares é sobrinho de Pedro Linhares, que era da primeira turma
 Outro que também era da primeira turma é o Élisson
@@ -1592,7 +1592,7 @@ Partição da imagem baseada no conteúdos de grupos de pixels.
 
 Início: Slide 5 - Extração de Características > Segmentação por clusterização > Algoritmo K-means
 
-Fim:Slide 5 - Extração de Características > Propeiedades do Pixel > Vizinhança em *Pixel*
+Fim:Slide 5 - Extração de Características > Propriedades do Pixel > Vizinhança em *Pixel*
 
 ### Slide 5 - Extração de Características (20)
 
@@ -1600,17 +1600,29 @@ Fim:Slide 5 - Extração de Características > Propeiedades do Pixel > Vizinhan�
 
 ##### Algoritmo K-means
 
-<!-- Anotações JV -->
+<!-- Início Anotações JV -->
 
 1. pega K valores aleatórios como meios
 2. atribui todos os pontos a qual é o ponto dentre os k pontos selecionados para o qual se está mais próximo
 3. depois de criado vetor dos K pontos definidos para uma das k médias, faz-se a média de todos os pontos que estão definidos a um dos K pontos
 4. Com essa nova média, é novamente executado o passo 2.
 
-<!-- Anotações JV -->
+<!-- Fim Anotações JV -->
 
-## Aula 21 - 16/05/23 - 1/4 - [14h.., 16h..]
+## Aula 21 - 16/05/23 - 1/4 - [14h11, 16h04]
 
-## Aula 22 - 18/05/23 - 1/4 - [14h.., 16h..]
+### Offtopic (21)
+
+### Slides
+
+Paramos em Círculo (página 33)
+
+## Aula 22 - 18/05/23 - 1/4 - [14h47, 16h..]
+
+### Offtopic (22)
+
+- Fidelização
+
+### Slides (22)
 
 ## Aula 23 - 23/05/23 - 1/4 - [14h.., 16h..]
