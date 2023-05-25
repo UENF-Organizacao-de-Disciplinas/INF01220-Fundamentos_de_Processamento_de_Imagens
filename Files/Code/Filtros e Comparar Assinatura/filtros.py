@@ -1,14 +1,24 @@
-import numpy as np
-import cv2
-from matplotlib import pyplot as plt
+""" Filtros?
+    Código inicial feito pelo Thiago Rodrigues 
+"""
+
 import math
+import cv2  # pip install opencv-python
+import numpy as np  # pip install numpy
 
-from numpy.lib.function_base import angle
+# from matplotlib import pyplot as plt
+# from numpy.lib.function_base import angle
 
+file_names = [
+    'assinatura_internet1.png',
+    'assinatura_vermelha.png',
+    'assinatura_preta.png',
+]
+base_path = 'Files/Code/Filtros e Comparar Assinatura/'
 
-image = cv2.imread("assinatura_vermelha.png")
-image2 = cv2.imread("assinatura_internet1.jpg")
-image3 = cv2.imread("assinatura_preta.png")
+image1 = cv2.imread(base_path + path_names[0])
+image2 = cv2.imread(base_path + path_names[1])
+image3 = cv2.imread(base_path + path_names[2])
 
 
 def proc(image):
@@ -418,17 +428,19 @@ def proc(image):
 
     print(intpts)
 
-    return image, grayImg, imMedia, imGaussian, imFourier, imSobel, imLaplace, binSobel, binLaplace, binOriginal, imgLines, imgR1, intpts, cms
+    return [image, grayImg, imMedia, imGaussian, imFourier, imSobel, imLaplace, binSobel, binLaplace, binOriginal, imgLines, imgR1, intpts, cms]
 
 
-image1, grayImg1, imMedia1, imGaussian1, imFourier1, imSobel1, imLaplace1, binSobel1, binLaplace1, binOriginal1, imgLines1, imgR11, intpts1, cms1 = proc(
-    image)
+# Data:
+# [image, grayImg, imMedia, imGaussian, imFourier, imSobel, imLaplace,
+# binSobel, binLaplace, binOriginal,
+# imgLines, imgR1, intpts, cms]
 
-image2, grayImg2, imMedia2, imGaussian2, imFourier2, imSobel2, imLaplace2, binSobel2, binLaplace2, binOriginal2, imgLines2, imgR12, intpts2, cms2 = proc(
-    image2)
+data_img_1 = proc(image1)
 
-image3, grayImg3, imMedia3, imGaussian3, imFourier3, imSobel3, imLaplace3, binSobel3, binLaplace3, binOriginal3, imgLines3, imgR13, intpts3, cms3 = proc(
-    image3)
+data_img_2 = proc(image2)
+
+data_img_3 = proc(image3)
 
 
 def comparar(binLaplace1, binLaplace2, intpts1, intpts2):
@@ -494,24 +506,24 @@ def comparar(binLaplace1, binLaplace2, intpts1, intpts2):
 
 
 print("\n Comparação da Imagem 2 com a Imagem 1")
-comparar(binLaplace1, binLaplace2, intpts1, intpts2)
+# comparar(binLaplace1, binLaplace2, intpts1, intpts2)
 print("\n Comparação da Imagem 3 com a Imagem 1")
-comparar(binLaplace1, binLaplace3, intpts1, intpts3)
+# comparar(binLaplace1, binLaplace3, intpts1, intpts3)
 
-# cv2.imshow("Imagem Colorida", image)
-# cv2.imshow("Imagem Cinza", grayImg1)
-# cv2.imshow("Imagem Filtrada com Media", imMedia1)
-# cv2.imshow("Imagem Filtrada com Gaussiana", imGaussian1)
-# cv2.imshow("Imagem Filtrada com Fourier", imFourier1)
-# cv2.imshow("Imagem Filtrada com Sobel", imSobel1)
-# cv2.imshow("Imagem Filtrada com Laplaciano", imLaplace1)
-# cv2.imshow("Imagem Binarizada (Sobel)", binSobel1)
-# cv2.imshow("Imagem Binarizada (Laplaciano)", binLaplace1)
-# cv2.imshow("Imagem Cinza Original Binarizada ", binOriginal1)
-cv2.imshow("Imagem CM ", imgLines1)
-cv2.imshow("Imagem CM 2", imgLines2)
-cv2.imshow("Imagem CM 3", imgLines3)
-cv2.imshow("Imagem com Raios ", imgR11)
-cv2.imshow("Imagem com Raios 2 ", imgR12)
-cv2.imshow("Imagem com Raios 3 ", imgR13)
-cv2.waitKey()
+# # cv2.imshow("Imagem Colorida", image)
+# # cv2.imshow("Imagem Cinza", grayImg1)
+# # cv2.imshow("Imagem Filtrada com Media", imMedia1)
+# # cv2.imshow("Imagem Filtrada com Gaussiana", imGaussian1)
+# # cv2.imshow("Imagem Filtrada com Fourier", imFourier1)
+# # cv2.imshow("Imagem Filtrada com Sobel", imSobel1)
+# # cv2.imshow("Imagem Filtrada com Laplaciano", imLaplace1)
+# # cv2.imshow("Imagem Binarizada (Sobel)", binSobel1)
+# # cv2.imshow("Imagem Binarizada (Laplaciano)", binLaplace1)
+# # cv2.imshow("Imagem Cinza Original Binarizada ", binOriginal1)
+# cv2.imshow("Imagem CM ", imgLines1)
+# cv2.imshow("Imagem CM 2", imgLines2)
+# cv2.imshow("Imagem CM 3", imgLines3)
+# cv2.imshow("Imagem com Raios ", imgR11)
+# cv2.imshow("Imagem com Raios 2 ", imgR12)
+# cv2.imshow("Imagem com Raios 3 ", imgR13)
+# cv2.waitKey()
