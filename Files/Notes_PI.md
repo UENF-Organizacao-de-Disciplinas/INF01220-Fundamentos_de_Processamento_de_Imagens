@@ -1625,4 +1625,18 @@ Paramos em Círculo (página 33)
 
 ### Slides (22)
 
-## Aula 23 - 23/05/23 - 1/4 - [14h.., 16h..]
+## Aula 23 - 23/05/23 - Faltei
+
+## Aula 24 - 25/05/23 - 1/4 - [14h30, 16h10]
+
+### Offtopic (24)
+
+- "Zero não existe"
+
+### Slides (24)
+
+Começou em Histograma de de Gradientes Orientados
+Terminou em Efeitos de superposição
+Reconhecimento de padrões em imagens
+
+## Aula 25 - 30/05/23 - 1/4 - [14h30, 16h00]

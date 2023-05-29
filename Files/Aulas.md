@@ -439,8 +439,10 @@ $$
 - Áreas regulares na imagem
 Células Descritor global
 8 x 8 pixels x = (x1,.., x1)
-Imagem: 10 x 10
+Imagem: 10 x 10 <!-- No histograma tá sobrando o valor um 8*8-(3+4+10+2+7+6+4+2+17+4+3+3) = -1 -->
 Células
+
+[Link](https://docplayer.com.br/79936604-Validacao-facial-com-histograma-de-gradiente-orientado.html)
 
 3 4 10 2 7 6 4 2 17 4 3 3
  (x orientação)
@@ -456,11 +458,11 @@ No Eixo Y: 0
 
 Variação de intensidades (Altas frequências)
 Magnitude
-𝑚 𝑥𝑖 , 𝑦𝑖 = 𝜕𝑥 𝑥𝑖 , 𝑦𝑖 2 + 𝜕𝑦 𝑥𝑖 , 𝑦𝑖 2
+m xi , yi = \partialx xi , yi 2 + \partialy xi , yi 2
 Orientação
-𝜕𝑦 𝑥𝑖 , 𝑦𝑖
-𝑎𝑛𝑔 𝑥𝑖 , 𝑦𝑖 = 𝑎𝑇𝑎𝑛
-𝜕𝑥 𝑥𝑖 , 𝑦𝑖
+\partialy xi , yi
+𝑎𝑛𝑔 xi , yi = 𝑎𝑇𝑎𝑛
+\partialx xi , yi
 
 #### Processo
 
@@ -474,7 +476,7 @@ ang.
 2
 1
 16
-0 22,5 45 66,5 90 …… 360
+0 22,5 45 66,5 90 \dots\dots 360
 
 #### Normalização
 
@@ -484,15 +486,15 @@ Variações de iluminação → variam os gradientes
 
 3 4
 Bloques
-V1 = (x11, …, x1d, x21, …, x2d, x31, …, x3d, x41, …, x4d)
-Vn1 = (x11, …, x1d, x21, …, x2d, x31, …, x3d, x41, …, x4d) / || V1 || Norma L2
+V1 = (x11, \dots, x1d, x21, \dots, x2d, x31, \dots, x3d, x41, \dots, x4d)
+Vn1 = (x11, \dots, x1d, x21, \dots, x2d, x31, \dots, x3d, x41, \dots, x4d) / || V1 || Norma L2
 1
-Norma L2: 𝑣 = 𝜀+σ 𝑥𝑖 2 2
+Norma L2: 𝑣 = 𝜀+σ xi 2 2
 
 #### Vetor HOG
 
 Concatenação
-HOG = (x1, …, xn)
+HOG = (x1, \dots, xn)
 
 #### Efeitos de Superposição
 
@@ -662,7 +664,7 @@ Entropía (E) da imagem: número avaliador da aleatoriedade
 
 m: número texels na imagem
 i =1  pi  pi: probabilidade de i- ésimo texel seja utilizada novamente
-0  menos irregular … mais irregular ➔
+0  menos irregular \dots mais irregular ➔
 E=0 E = 0.9149
 E = 5.8766 E = 5.9851 E = 6.2731
 
