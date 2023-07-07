@@ -509,357 +509,385 @@ HOG = (x1, \dots, xn)
 ## Slide 6 - Textura
 
 Textura
-Rivera
 
 ### Textura
 
-- Padrão visual que possui algumas propriedades de homogeneidade que
-não resultam simplesmente de uma cor ou intensidade. Aspecto visual da
-superfície.
-- Relacionada com coeficientes de uniformidade, densidade, aspereza,
-regularidade, intensidade, dentre outros, oriundos da probabilidade de
-ocorrência de variações tonais.
+- Padrão visual que possui algumas propriedades de homogeneidade que não resultam simplesmente de uma cor ou intensidade. Aspecto visual da superfície.
+- Relacionada com coeficientes de uniformidade, densidade, aspereza, regularidade, intensidade, dentre outros, oriundos da probabilidade de ocorrência de variações tonais.
 
-Área mínima: elemento
-básico de textura ou
-texel ou texton
+**Área mínima**: elemento básico de textura ou texel ou texton
 
-Textura não pode ser
-definida em um pixel,
-mas sim através e uma
-região de conjunto de
-pixels.
+Textura não pode ser definida em um pixel, mas sim através e uma região de conjunto de pixels.
+
+<!-- Imagem -->
 
 ### Espaço de Textura
 
 - Pode ser vantajoso assumir que o padrão da imagem se repete fora desse intervalo
-T (s, t) = Im [ (1 – s) N mod
-N, t M mod M ]
 
-### cor rgb do texel atribuída
+$T (s, t) = Im \left(  \lfloor (1 – s) N \rfloor \mod N, \lfloor t M \rfloor \mod M \right)$
 
-ao pixel
-texel correspondente ao
-ponto
+- $s$: coordenada x da textura
+- $t$: coordenada y da textura
+- $M$: tamanho x da imagem
+- $N$: tamanho y da imagem
 
-### Mapeamento
-
-A especificação dos vértices dos polígonos e precedida da especificação do
-ponto da textura (texel) que ai mapeia.
-(1, 1)
-
-1
-t
-0 s 1 (- 1, - 1)
-
-glBindTexture(GL_TEXTURE_2D,texID);
-glBegin(GL_QUADS);
-glTexCoord2f(0,0); glVertex3f(- 1.0f, - 1.0f, 0.0f);
-glTexCoord2f(1,0); glVertex3f( 1.0f, - 1.0f, 0.0f);
-glTexCoord2f(1,1); glVertex3f( 1.0f, 1.0f, 0.0f);
-glTexCoord2f(0,1); glVertex3f(- 1.0f, 1.0f, 0.0f);
-glEnd();
-
-### - A escolha de coordenadas no espaço das texturas e "livre"
-
-(0.2, 0.8)
-
-1
-
-t
-(0.4, 0.2)
-(0.8, 0.4)
-0 s 1
-
-Espaço de textura Espaço de objeto
-
-### Parametrização da Esfera
-
-Função de mapeamento
-z
-x( , ) = sin  cos  = π t
-y ( , ) = sin  sin = 2π  s
-φ
-z ( , ) = cos
-y
-
-Função de mapeamento inversa
-arccos z
-x
- = arccos z t=
-
-y
- = arctan arctan
-y
-x x
-s=
-2
-
-### Parametrização do Cilindro
-
-Função de mapeamento
-z
-x = cos = 2π  s
-y = sin z =t
-z=z
-y
-
-Função de mapeamento inversa
-x
- = arctan
-y
-s=
-x 2π
-z=z t=z
-
-### Parametrizando Objetos Genéricos
-
-- O que fazer quando o objeto não comporta uma
-parametrização natural?
-- Uma sugestão é usar um mapeamento em 2
-estágios [Bier e Sloan]:
-- Mapear textura sobre uma superfície simples
-como cilindro, esfera, etc aproximadamente
-englobando o objeto
-- Mapear superfície simples sobre a superfície do
-objeto. Pode ser feito de diversas maneiras
-- Raios passando pelo centróide do objeto
-- Raios normais à superfície do objeto
-- Raios normais à superfície simples
-- Raios refletidos
-
-### Exemplos
-
-Parametrização Projetada em Projetada em
-esférica um cubo um cilindro
-
-### Efeitos especiais com mapeamento de textura - Bump mapping
-
-- Utiliza texturas para perturbar a direção do vetor normal de cada ponto da superfície (Blinn, 1978).
-– Não modifica a forma da superfície.
-– Modelo de iluminação usa o vetor normal modificado.
-Esfera com textura Bump map Esfera com textura difusa
-difusa e bump mapping
+<!-- Imagem -->
 
 ---
 
-- Simula detalhes na superfície sem
-a necessidade de criar geometria.
+cor rgb do texel atribuída ao pixel
+
+<!-- Imagem -->
+
+$[texel] = [H]^{-1} * [pixel]$
+
+texel correspondente ao ponto
+
+### Mapeamento
+
+A especificação dos vértices dos polígonos e precedida da especificação do ponto da textura (texel) que ai mapeia.
+
+<!-- Imagem -->
+
+```c
+  glBindTexture(GL_TEXTURE_2D,texID);
+  glBegin(GL_QUADS);
+    glTexCoord2f(0,0); glVertex3f(-1.0f, -1.0f, 0.0f);
+    glTexCoord2f(1,0); glVertex3f( 1.0f, -1.0f, 0.0f);
+    glTexCoord2f(1,1); glVertex3f( 1.0f,  1.0f, 0.0f);
+    glTexCoord2f(0,1); glVertex3f(-1.0f,  1.0f, 0.0f);
+  glEnd();
+```
+
+---
+
+- A escolha de coordenadas no espaço das texturas e "livre".
+
+<!-- Imagem -->
+
+- Espaço de textura
+- Espaço de objeto
+
+### Parametrização da Esfera
+
+<!-- Imagem -->
+
+- *Função de mapeamento*
+  - $\varphi = t \pi$
+  - $\theta = 2 s \pi$
+  - $x(\varphi, \theta) = \sin \varphi \cos \theta$
+  - $y(\varphi, \theta) = \sin \varphi \sin \theta$
+  - $z(\varphi, \theta) = \cos \varphi$
+- *Função de mapeamento inversa*
+  - $\varphi = \arccos z$
+  - $\theta = \arctan \frac{y}{x}$
+  - $t = \frac{\arccos z}{\pi}$
+  - $s = \frac{\arctan \frac{y}{x}}{2 \pi}$
+
+### Parametrização do Cilindro
+
+<!-- Imagem -->
+
+- *Função de mapeamento*
+  - $x = \cos \theta$
+  - $y = \sin \theta$
+  - $z = z$
+  - $\theta = s 2 \pi$
+  - $t = z$
+- *Função de mapeamento inversa*
+  - $s = \frac{\theta}{2 \pi}$
+  - $t = z$
+  - $z = z$
+  - $\theta = \arctan \frac{y}{x}$
+
+### Parametrizando Objetos Genéricos
+
+- O que fazer quando o objeto não comporta uma parametrização natural?
+- Uma sugestão é usar um mapeamento em 2 estágios [Bier e Sloan]:
+  - Mapear textura sobre uma superfície simples como cilindro, esfera, etc aproximadamente englobando o objeto
+  - Mapear superfície simples sobre a superfície do objeto. Pode ser feito de diversas maneiras
+    - Raios passando pelo centróide do objeto
+    - Raios normais à superfície do objeto
+    - Raios normais à superfície simples
+    - Raios refletidos
+
+#### Exemplos
+
+- Parametrização esférica <!-- Imagem -->
+- Projetada em um cubo <!-- Imagem -->
+- Projetada em um cilindro <!-- Imagem -->
+
+### Efeitos especiais com mapeamento de textura
+
+#### Bump mapping
+
+- Utiliza texturas para perturbar a direção do vetor normal de cada ponto da superfície (Blinn, 1978).
+  – Não modifica a forma da superfície.
+  – Modelo de iluminação usa o vetor normal modificado.
+
+- Esfera com textura difusa <!-- Imagem -->
+- *Bump map* <!-- Imagem -->
+- Esfera com textura difusa e bump mapping <!-- Imagem -->
+
+---
+
+<!-- Imagem -->
+
+- Simula detalhes na superfície sem a necessidade de criar geometria.
 - Por outro lado:
-– Não produz silhuetas corretas.
-– Não simula oclusão entre os
-detalhes.
-– Não simula sombras entre os
-detalhes.
+  – Não produz silhuetas corretas.
+  – Não simula oclusão entre os detalhes.
+  – Não simula sombras entre os detalhes.
 
-### Efeitos especiais com mapeamento de textura - Displacement mapping
+#### Displacement mapping
 
-- Semelhante ao bump mapping, porém modifica a geometria.
-– Cada texel do displacement map é um valor de deslocamento do
-vértice ao longo do vetor normal.
+<!-- Imagem -->
+
+- Semelhante ao *bump mapping*, porém modifica a geometria.
+– Cada texel do *displacement map* é um valor de deslocamento do vértice ao longo do vetor normal.
 
 ### Característica da textura
 
-Entropía (E) da imagem: número avaliador da aleatoriedade
+Entropia (E) da imagem: número avaliador da aleatoriedade
 
-m: número texels na imagem
-i =1  pi  pi: probabilidade de i- ésimo texel seja utilizada novamente
-0  menos irregular \dots mais irregular ➔
-E=0 E = 0.9149
-E = 5.8766 E = 5.9851 E = 6.2731
+$$
+E = \sum_{i=1}^{m}
+\left[
+  p_i \log_{2}
+  \left(
+    \frac{1}{p_i}
+  \right)
+\right]
+$$
+
+$m$: número texels na imagem
+$p_i$: probabilidade de i-ésimo texel seja utilizada novamente
+
+<!-- Imagem -->
 
 ### Coeficiente de Hurst
 
 Geometria fractal em análise textural
 
-- índice numérico para identificação
+- Índice numérico para identificação
 
-ln N
-D= N: número de partes de uma imagem I
-1
-ln   r: factor de escala
-r
-N=9
-Hurst usado para dimenão fractal (DE):
+$D = \frac{\ln{N}}{\ln \left( \frac{1}{r} \right)}$
+
+<!-- Imagem -->
+<!-- Imagem -->
+
+N: Número de partes de uma imagem I
+r: Factor de escala
+
+Hurst usado para dimensão fractal (DE):
 
 - Determinação da rugosidade de superfície terrestre
 - Classificação da imagem
 - Tipos de paisagens
 - Fraturas de superfícies
-- Desgastes, eroção, corroção, etc.
-
-Imagem 7 x 7
+- Desgastes, erosão, corrosão, etc.
 
 ---
 
-- Determinar: ∆g → maior diferença de nível de cinza para cada classe
-- Buscar o maior e menor tom da região
-- determinar a diferença por vez
+- Determinar: $\Delta g \rightarrow$ maior diferença de nível de cinza para cada classe
+  - Buscar o maior e menor tom da região
+    - determinar a diferença por vez
 - Obter os logaritmos de cada diferença
-- Obter ajuste da reta y = bx + a
+- Obter ajuste da reta $y = bx + a$
 
-n ln d ln g −  ln d  ln g
-b=
-n (ln d ) −  (ln d )
-2 2
-a=
- ln g
-−b
- ln d
-n n
+$$b =
+\frac{
+  n \sum \ln d \Delta g - \sum \ln d \sum \ln \Delta g
+}{
+  n \sum (\ln d)^2 - \sum (\ln d)^2
+}
+$$
 
-A reta neste caso tem a
-equação: y =
-1,2229x+3,1952.
-Coeficiente de Hurst:
-inclinação da reta,
-b=1,2229.
+$$a =
+\frac{\sum \ln \Delta g}{n} - b
+\frac{\sum \ln d}{n}
+$$
 
-#### Coeficiente de Hurst: inclinação da reta, b=1,2229
+---
 
-De segmento de imagem com C. de Hurst define a mesma altura
+<!-- 4x Imagem -->
+
+A reta neste caso tem a equação: y = 1,2229x+3,1952.
+**Coeficiente de Hurst**: inclinação da reta, b=1,2229.
+
+---
+
+**Coeficiente de Hurst**: inclinação da reta, b=1,2229
+
+De segmento de imagem com Coeficiente de Hurst define a mesma altura.
+
+a. Imagem Monocromática <!-- Imagem -->
+b. Gráfico da imagem <!-- Imagem -->
 
 ## Slide 7 - Compressão de Imagem
 
-Compressão de Imagem
-Rivera
-
 ### Compressão de Imagem
 
-- Formas de diminuir a área de armazenamento dos dados,
-reduzindo a quantidade de bits para representar os dados
-(imagem, texto, ou arquivo qualquer).
-
-- Em compressão de imagem define- se como a forma
-(algoritmos e métodos) de armazenar informações visuais
-mais compactamente.
+- Formas de diminuir a área de armazenamento dos dados, reduzindo a quantidade de bits para representar os dados (imagem, texto, ou arquivo qualquer).
+- Em compressão de imagem define- se como a forma (algoritmos e métodos) de armazenar informações visuais mais compactamente.
 
 ### Redundâncias na Imagem
 
-Tipos de redundância em imagens:
-
-- De codificação de tons ou cor
-- níveis de cinza ou cores da imagem codificados com mais símbolos de
-codificação do que o necessário.
-- Inter-pixel
-- resultantes das relações geométricas entre os objetos na imagem.
-- Espectral
-- valores espectrais, para a mesma posição na matriz de pixels de cada banda, são
-correlacionados.
-
-- Psicovisuais
-- relacionadas ao fato do sistema visual humano não responder com a mesma
-sensibilidade a todas as informações visuais.
+- **Tipos de redundância em imagens**:
+  - **De codificação de tons ou cor**
+    - Níveis de cinza ou cores da imagem codificados com mais símbolos de codificação do que o necessário.
+  - **Inter-pixel**
+    - Resultantes das relações geométricas entre os objetos na imagem.
+  - **Espectral**
+    - Valores espectrais, para a mesma posição na matriz de pixels de cada banda, são correlacionados.
+  - **Psicovisuais**
+    - Relacionadas ao fato do sistema visual humano não responder com a mesma sensibilidade a todas as informações visuais.
 
 ### Compressão de imagens e modelos de cores
 
 - YIQ (para transmissão de televisão);
-- RGB (para monitores de computador colorido); CMY (para impressoras
-coloridas;
-- HSI (Hue, Saturation, Intensity ou matiz, saturação, intensidade);
-- HSV (Hue, Saturation, Value) ou matiz, Saturação e Valor;
+- RGB (para monitores de computador colorido); CMY (para impressoras coloridas);
+- HSI (*Hue*, *Saturation*, *Intensity* ou matiz, saturação, intensidade);
+- HSV (*Hue*, *Saturation*, *Value*) ou matiz, Saturação e Valor;
 - YCBCR - compressão de imagens (usado no formato de imagens JPEG).
 
 ### Medição do Desempenho
 
-Medida de desempenho - > taxa de compressão
-Tamanho(ImagComp) / tamanho(ImagOrig)
+- Medida de desempenho $\rightarrow$ taxa de compressão
+  - $Tamanho(ImagComp) / tamanho(ImagOrig)$
 
 - Técnicas sem perda
-- quanto maior a taxa de compressão melhor é a técnica de compressão.
-
+  - Quanto maior a taxa de compressão melhor é a técnica de compressão.
 - Técnicas com perda
-- deve- se considerar também a qualidade do sinal ou dado reconstruído.
+  - Deve-se considerar também a qualidade do sinal ou dado reconstruído.
 - Critérios de fidelidade
-- se a remoção de dados causou perda de informação visual.
-- Podem ser: quantitativos ou subjetivos.
+  - Se a remoção de dados causou perda de informação visual.
+  - Podem ser quantitativos ou subjetivos.
 
 ### Critérios de fidelidade objetivos
 
-Sendo F(x, y) a imagem original e G(x, y) a imagem reconstruída, tem- se:
-Erro Total ou absoluto:
-M −1 N −1
-et =  G( x, y) − F ( x, y)
-x =0 y =0
+Sendo $F(x, y)$ a imagem original e $G(x, y)$ a imagem reconstruída, tem-se:
 
-Raiz Quadrada do Quadrado da Média dos Erros:
- 1 M −1 N −1
-erms =     G( x, y ) − F ( x, y )  2
+- Erro Total ou absoluto:
+  - $$e_t = \sum_{M-1}^{x=0} \sum_{N-1}^{y=0} |G(x,y) - F(x,y)|$$
+- Raiz Quadrada do Quadrado da Média dos Erros:
 
- MN x =0 y =0
-Razão ou Relação Sinal Ruído:
-M −1 N −1 M −1 N −1
+$$
+e_{rms} = \sqrt{
+  \left[
+    \frac{1}{MN}
+    \sum_{M-1}^{x=0} \sum_{N-1}^{y=0}
+    \left[
+      G(x,y) - F(x,y)
+    \right]^2
+  \right]
+}
+$$
 
-  G( x, y )
-x =0 y =0
-2
-  G( x, y )
-x =0 y =0
-2
-SNRrms = M −1 N −1 = M −1 N −1
+- Razão ou Relação Sinal Ruído:
 
-  e( x, y )    G( x, y ) − F ( x, y )
-2 2
+$$
+SNR_{rms} =
+\sqrt{
+  \frac{
+    \sum_{M-1}^{x=0} \sum_{N-1}^{y=0}
+    G(x,y)^2
+  }{
+    \sum_{M-1}^{x=0} \sum_{N-1}^{y=0}
+    e(x,y)^2
+  }
+} =
+\sqrt{
+  \frac{
+    \sum_{M-1}^{x=0} \sum_{N-1}^{y=0}
+    G(x,y)^2
+  }{
+    \sum_{M-1}^{x=0} \sum_{N-1}^{y=0}
+    \left[
+      G(x,y) - F(x,y)
+    \right]^2
+  }
+}
+$$
 
-x =0 y =0 x =0 y =0
+---
 
-### Original Comprida Diferença Diferença
+- Imagens
+  - Original <!-- Imagem -->
+  - Comprida (fractal e reconstruída) <!-- Imagem -->
+  - Diferença absoluta <!-- Imagem -->
+  - Diferença relativa <!-- Imagem -->
 
-(fractal) e absoluta relativa
-reconstruída
-
-Erro rms= 9,7622
-SNR rms 10,4823
-PSNR (dB)28,3398
+- Erro rms = 9,7622
+- SNR rms 10,4823
+- PSNR (dB)28,3398
 
 ### Métodos de Compressão de Imagem
 
 1. Compressão sem perda ou codificação de redundância
    - Preserva todas as informações para reconstrução exata da imagem
    - Explora a redundância entre pixels na codificação
-   - Ex. RLE (Run Lenght Encoding), LZ (Lempel Ziv), LZW (Lempel Ziv Wech), algoritmo de Huffman (usadas nos formatos: PCX, PNG, GIF, TIFF).
+   - Ex. RLE (*Run Lenght Encoding*), LZ (*Lempel Ziv*), LZW (*Lempel Ziv Wech*), algoritmo de Huffman (usadas nos formatos: PCX, PNG, GIF, TIFF).
 2. Compressão com perda
    - Há perda de dados durante a compressão da imagem
    - É mais eficiente em relação à área final de armazenamento
    - Não é admissível em aplicações médicas
-
-- Degradação visual na imagem
+   - Degradação visual na imagem
 
 ### Compressão Simétrica e Assimétrica
 
 Classificação quanto ao tempo de compressão e descompressão.
 
-- Compressão simétrica: tempo de compressão é igual ao de descompressão
-- Transformadas de Wavelets (WT) e Transformadas de Cossenos (DCT -  Discrete Cosine Transform).
-
-- Compressão assimétrica: tempo de compressão é bem maior que o
-tempo de descompressão
-- fractal.
+- **Compressão simétrica**: tempo de compressão é igual ao de descompressão
+  - *Transformadas de Wavelets* (WT) e Transformadas de Cossenos (DCT - *Discrete Cosine Transform*).
+- **Compressão assimétrica**: tempo de compressão é bem maior que o tempo de descompressão
+  - fractal.
 
 ### Entropia da Imagem
 
-Seja A = {a1, a2, ...,aJ} tonalidade de cinza ou tabela de cores de RGB
+Seja $A = \{a_1, a_2, \dots,a_J\}$ tonalidade de cinza ou tabela de cores de RGB
 Entropia permite saber se uma imagem tem redundância
-J
-H ( A) = −  P(a j ) - log P(a j )
-j =1
-Cor Total Probabilidade
-4 4 4 4 64 64 128 128
-4 12 12/32=3/8
-4 4 4 4 64 64 128 128
-16 4 4/32=1/8
-4 4 16 16 128 128 128 128
-64 4 4/32=1/8
-4 4 16 16 128 128 128 128 128 12 12/32=3/8
-
-Imagem 4x8=32 pixels em grayscale Probabilidades para cada nível de cinza
 
 $$
-H(A) = – P(4) * log2(P(4)) – P(16) * log2 (P(16)) – P(64) * log2 (P(64)) – P(128) * log2 (P(128))
-H(A) = –[3/8 * log2 (3/8) + 1/8 * log2 (1/8) + 1/8 * log2 (1/8) + 3/8 * log2 (3/8)] = 0.81 bits/pixel
+H(A) = - \sum_{J}^{j=1} P (a_j)  \log P (a_j)
 $$
-Usados 4x8 pixels = 32 pixels ➔ ( 0.81 bits/pixel ) x (32 pixel) = 25 bits
-De informação redundante.
+
+Imagem 4x8=32 pixels em *grayscale*
+
+| 4   | 4   | 4   | 4   | 64  | 64  | 128 | 128 |
+| --- | --- | --- | --- | --- | --- | --- | --- |
+| 4   | 4   | 4   | 4   | 64  | 64  | 128 | 128 |
+| 4   | 4   | 16  | 16  | 128 | 128 | 128 | 128 |
+| 4   | 4   | 16  | 16  | 128 | 128 | 128 | 128 |
+
+Probabilidades para cada nível de cinza
+
+| Cor | Total | Probabilidade |
+| --- | ----- | ------------- |
+| 4   | 12    | 12/32 = 3/8   |
+| 16  | 4     | 4/32 = 1/8    |
+| 64  | 4     | 4/32 = 1/8    |
+| 128 | 12    | 12/32 = 3/8   |
+
+$$
+H(A) = – P(4) *
+\log_{2}(P(4))  – P(16) *
+\log_{2}(P(16)) – P(64) *
+\log_{2}(P(64)) – P(128) *
+\log_{2}(P(128))
+$$
+
+$$
+H(A) = –[3/8 *
+\log_{2} (3/8) + 1/8 *
+\log_{2} (1/8) + 1/8 *
+\log_{2} (1/8) + 3/8 *
+\log_{2} (3/8)] =
+0.81 bits/pixel
+$$
+
+Usados 4x8 pixels = 32 pixels $\rightarrow$ ( 0.81 bits/pixel ) x (32 pixel) = 25 bits De informação redundante.
 
 ### Codificação de Huffman
 
@@ -874,275 +902,345 @@ Duas etapas:
 2. Codificação
    - Símbolos reduzidos - começando com o de maior probabilidade que será associado ao menor código e voltando para os originais.
 
-### Exemplo
+#### Exemplo
 
-Seja imagem M: 10x10 de 6 tons de cinza (a1 a2 a3 a4 a5 a6)
+Seja imagem M: 10x10 de 6 tons de cinza $(a_1, a_2, a_3, a_4, a_5, a_6)$
 
-Primeira etapa: redução
+Primeira etapa: *redução*
 
-1. Selec. de (a1 a2 a3 a4 a5 a6) 2 de menor prob.
-   - p(a4) + p(a6) = 1/16 = p(a7)
-2. Selec. de (a1 a2 a3 a5 a7) 2 de menor prob.
-   - p(a3) + p(a7) = 5/32 = p(a8)
-3. Selec. de (a1 a2 a5 a8) 2 de menor prob.
-   - p(a2) + p(a5) = 7/32 = p(a9)
-4. Selec. de (a1 a8 a9) 2 de menor prob.
-   - p(a8) + p(a9) = 3/8 = p(a10)
-5. Selec. de (a1 a10) 2 de menor prob.
-   - p(a1) + p(a10) = 1 = p(a11)
+1. Selec. de $(a_1 a_2 a_3 a_4 a_5 a_6)$ 2 de menor prob.
+   - $p(a_4) + p(a_6) = 1/16 = p(a_7)$
+2. Selec. de $(a_1 a_2 a_3 a_5 a_7)$ 2 de menor prob.
+   - $p(a_3) + p(a_7) = 5/32 = p(a_8)$
+3. Selec. de $(a_1 a_2 a_5 a_8)$ 2 de menor prob.
+   - $p(a_2) + p(a_5) = 7/32 = p(a_9)$
+4. Selec. de $(a_1 a_8 a_9)$ 2 de menor prob.
+   - $p(a_8) + p(a_9) = 3/8 = p(a_10)$
+5. Selec. de $(a_1 a_10)$ 2 de menor prob.
+   - $p(a_1) + p(a_10) = 1 = p(a_11)$
 
-### Segunda etapa da codificação de Huffman
+---
 
-Informação Probabilidade Código
-a1 5/8=20/32 0
-a10 3/8=12/32 1
-a9 7/32 10
-a8 5/32 11
-a5 1/8=4/32 101
-a2 3/32 100
-a3 3/32 110
-a7 2/32 111
-a4 1/32 1110
-a6 1/32 1111
+Segunda etapa da codificação de Huffman
+
+| Informação | Probabilidade | Código |
+| ---------- | ------------- | ------ |
+| $a_1$      | 5/8=20/32     | 0      |
+| $a_10$     | 3/8=12/32     | 1      |
+| $a_9$      | 7/32          | 10     |
+| $a_8$      | 5/32          | 11     |
+| $a_5$      | 1/8=4/32      | 101    |
+| $a_2$      | 3/32          | 100    |
+| $a_3$      | 3/32          | 110    |
+| $a_7$      | 2/32          | 111    |
+| $a_4$      | 1/32          | 1110   |
+| $a_6$      | 1/32          | 1111   |
 
 Uma cadeia de códigos: 110 0 100 0 1111 110 0 101 0 1110
-É: a3 a1 a2 a1 a6 a3 a1 a5 a1 a4
+É: $a_3 a_1 a_2 a_1 a_6 a_3 a_1 a_5 a_1 a_4$
 
 ### Codificação por LZW
 
 Usa tabela de palavras contendo os símbolos que serão codificados.
 
-Routine LZW_COMPRESS Exemplo:
-STRING = get input char Input String = /WED/WE/WEE/WEB/WET
-WHILE there are still input chars DO CharInp CodeOut NewCodeVal NewString
-CHAR = get input char
-/W / 256 /W
-IF STRING+CHAR is in the string table THEN
-STRING = STRING+CHAR E W 257 WE
-ELSE D E 258 ED
-output the code for STRING
-add STRING+CHAR to the string table / D 259 D/
-STRING = CHAR WE 256 260 /WE
-END of IF
-/ E 261 E/
-END of WHILE
-output the code for STRING WEE 260 262 /WEE
-/W 261 263 E/W
+```python
+def LZW_COMPRESS:
+  STRING = get input char
+  while there are still input chars:
+    CHAR = get input char
+    if STRING+CHAR is in the string table:
+      STRING = STRING + CHAR
+    else:
+      output the code for STRING
+      add STRING+CHAR  to the string table
+      STRING = CHAR
+  output the code for STRING
+```
 
-/WED/WE/WEE/WEB/WET EB 257 264 WEB
-/ B 265 B/
-/WED- E- *- B*T
-WET 260 266 /WET
-EOF T
+input:  /WED/WE/WEE/WEB/WET
+output: /WED-E-*-B*T
+
+Exemplo:
+
+Input String = /WED/WE/WEE/WEB/WET
+
+| CharInp | CodeOut | NewCodeVal | NewString |
+| ------- | ------- | ---------- | --------- |
+| \W      | /       | 256        | /W        |
+| E       | W       | 257        | WE        |
+| D       | E       | 258        | ED        |
+| /       | D       | 259        | D/        |
+| WE      | 256     | 260        | WE        |
+| /       | E       | 261        | E/        |
+| WEE     | 260     | 262        | /WEE      |
+| /W      | 261     | 263        | E/W       |
+| EB      | 257     | 264        | WEB       |
+| /       | B       | 265        | B/        |
+| WET     | 260     | 266        | /WET      |
+| EOF     | T       |            |           |
 
 ### Decodificação LZW
 
+```python
+def LZW_DECOMPRESS:
+  Read OLD_COD
+  output OLD_COD
+  while there are still input characters:
+    Read NEW_COD
+    STRING = get translation of NEW_COD
+    output STRING
+    CHAR = first character in STRING
+    add OLD_COD + CHAR  to the translation table
+    OLD_COD = NEW_COD
+```
+
 Input Codes: / W E D 256 E 260 261 257 B 260 T
-Routine LZW_DECOMPRESS
-Input/ STRING/ New
-oldCod CHAR
-newCod Ouput table entry
-Read OLD_COD / / / / /
-output OLD_COD W / W W 256 = /W
-WHILE there are still input characters DO E W E E 257 = WE
-Read NEW_COD D E D D 258 = ED
 
-STRING = get translation of NEW_COD 256 D /W / 259 = D/
+| Input/newCod | oldCod | STRING/Output | CHAR | New table entry |
+| ------------ | ------ | ------------- | ---- | --------------- |
+| /            | /      | /             | /    | /               |
+| W            | /      | W             | W    | 256 = /W        |
+| E            | W      | E             | E    | 257 = WE        |
+| D            | E      | D             | D    | 258 = ED        |
+| 256          | D      | /W            | /    | 259 = D/        |
+| E            | 256    | E             | E    | 260 = /WE       |
+| 260          | E      | /WE           | /    | 261 = E/        |
+| 261          | 260    | E/            | E    | 262 = /WEE      |
+| 257          | 261    | WE            | W    | 263 = E/W       |
+| B            | 257    | B             | B    | 264 = WEB       |
+| 260          | B      | /WE           | /    | 265 = B/        |
+| T            | 260    | T             | T    | 266 = /WET      |
 
-output STRING E 256 E E 260 = /WE
+Output code (?): /WED/WE/WEE/WEB/WET
 
-CHAR = first character in STRING 260 E /WE / 261 = E/
+### Transformada Discreta do Cosseno (DCT)
 
-add OLD_COD + CHAR to the translation table 261 260 E/ E 262 = /WEE
+Transforma discreta de co- senos em 2-D : Espacial $\rightarrow$ frequência
 
-OLD_COD = NEW_COD 257 261 WE W 263 = E/W
-B 257 B B 264 = WEB
-END of WHILE
-260 B /WE / 265 = B/
-T 260 T T 266 = /WET
+$$
+T [i, j]
+=
+c(i)c(j)
+\sum_{x=0}^{N-1}
+\sum_{y=0}^{N-1}
+I [y, x]
+\cos \frac{(2y+1) i\pi}{2N}
+\cos \frac{(2x+1) j\pi}{2N}
+$$
 
-/WED/WE/WEE/WEB/WET
+onde
 
-### Transformada Discreta do Co- seno (DCT)
+$$
+c(i), c(j) =
+\begin{cases}
+  \sqrt{\frac{2}{N}} & i, j \neq 0 \\
+  \sqrt{\frac{1}{N}} & i, j = 0 \\
+\end{cases}
 
-Transforma discreta de co- senos em 2- D : Espacial → frequência
-N −1 N −1
-(2 y + 1)i (2 x + 1) j
-T [i, j ] = c(i)c( j )  I [ y, x] cos cos
-x =0 y =0 2N 2N
+$$
 
- 2
-i, j  0
-onde c(i), c( j ) =  N
+Transformada Inversa IDCT 2-D:
 
- 1
-N i, j = 0
+$$
+I [y, x]
+=
+\sum_{i=0}^{N-1}
+\sum_{j=0}^{N-1}
+c(i)c(j)
+T [i, j]
+\cos \frac{(2y+1) i\pi}{2N}
+\cos \frac{(2x+1) j\pi}{2N}
+$$
 
-Transformada Inversa IDCT 2- D:
-
-N −1 N −1
-(2 y + 1)i (2 x + 1) j
-I [ y, x] =   c(i )c( j )T [i, j ] cos cos
-i =0 j =0 2N 2N
-
-Essa compressão é usada no formato JPEG padrão com valor de N igual a 8.
+Essa compressão é usada no formato JPEG padrão com valor de $N$ igual a 8.
 
 ### Compressão por Wavelets
 
-Qualquer função, com período 2, pode ser reescrita como a
-soma dos termos da Série de Fourier:
-
-a 0 +  (a n cos nt + bn sen nt )
-n =1
+Qualquer função, com período $2\pi$, pode ser reescrita como a soma dos termos da Série de Fourier:
+
+$$
+
+$$
+
 Os coeficientes são calculados por:
-2
 
- f (t ) dt
-2
-a0 =
-T 0
+$$
 
-2
+$$
 
- f (t ) cos(nt )dt
-2
-an =
-T 0
-
-2
-
- f (t ) sen(nt )dt
-2
-bn =
-T 0
-
-### Análise de Wavelet
+#### Análise de Wavelet
 
 - Ferramenta matemática para decomposição em nível hierárquico em aproximações (O) e detalhes (D).
 - O nível hierárquico em escala diática (formado por potência de 2).
-- Descrição de uma função em termos globais, mais termos que variam de O(1) detalhes globais até detalhes finos.
-- A função em questão pode ser uma O(2) D(2) imagem, uma curva ou uma superfície. O(3) D(3)
+- Descrição de uma função em termos globais, mais termos que variam de detalhes globais até detalhes finos.
+- A função em questão pode ser uma imagem, uma curva ou uma superfície.
 
-O(n) D(n)
+<!-- Imagem -->
+<!-- Imagem -->
 
-### Transformada de Wavelet Contínua (TWC)
+#### Transformada de Wavelet Contínua (TWC)
 
-A Transformada de Wavelets contínua em F(a,b) é:
+A Transformada de Wavelets contínua em $F(a, b)$ é:
 
-F (a, b) =  f (t ) a ,b (t ) dt
+$F (a, b) =  f (t ) a ,b (t ) dt$
 
-A função a,b (t ) é denominada wavelet:
+A função $a,b (t )$ é denominada *wavelet*:
 
+$$
 1 t −b
 a , b (t ) =   , a  0 , b 
 a  a 
+$$
 
-As funções wavelets são derivadas
-segundo os critérios:
+As funções wavelets são derivadas segundo os critérios:
+
+$$
 −1 2
 ˆ (u ) du  
-C = 2  u 
+C = 2 \pi u 
+$$
 
-### Transformada de Wavelet Discreta
+<!-- Imagem -->
+<!-- Imagem -->
+<!-- Imagem -->
 
+#### Transformada de Wavelet Discreta
+
+$$
 t −b
 a , b (t ) = ( j, k )  Z 2
 1
  , a=2 ,b=k 2 ,
 j j
-
 a  a 
-Transformada Wavelet Haar Unidimensional
+$$
 
-Resolução Valor Aprox. Coef. Detalhes
-4 [ 9 7 3 5 ]
-2 [ 8 4 ] [ 1 - 1 ] [ 6 2 1 - 1 ]
-1 [ 6 ] [ 2 ]
+- **Transformada Wavelet Haar Unidimensional**
 
-### Sequência de aproximação e coeficientes de detalhes
+| Resolução | Valor Aprox.   | Coef. Detalhes |
+| --------- | -------------- | -------------- |
+| 4         | [ 9, 7, 3, 5 ] |                |
+| 2         | [ 8, 4 ]       | [ 1, -1 ]      |
+| 1         | [ 6 ]          | [ 2 ]          |
 
-Aproximação V4
+[ 6, 2, 1, -1 ]
+
+---
+
+- Sequência de aproximação e coeficientes de detalhes
+
+<!-- Ele pulou -->
+
+Aproximação $V4$
 
 Espaço de Imagem
-V 0  V 1  V 2 ...
+$V $0  $V $1  $V $2 ...
 
-Aproximação V3 Coeficientes de detalhes W3
-Base de V j
+Aproximação $V3$ Coeficientes de detalhes W3
+Base de $V $j
 
 i j ( x) =  (2 j x − i )
-Aproximação V2 Coeficientes de detalhes W2
+Aproximação $V2$ Coeficientes de detalhes W2
 Espaço de Detalhes
-W 0 V 0 = V 1
+W 0 $V $0 = $V $1
 
-Aproximação V1 Coeficientes de detalhes W1 W 1 V 1 = V 2
+Aproximação $V1$ Coeficientes de detalhes W1 W 1 $V $1 = $V $2
 
 Base de W j
  i j ( x) =  (2 j x − i )
-Aproximação V0 Coeficientes de detalhes W0
+Aproximação $V0$ Coeficientes de detalhes W0
 
 ### Bases Haar
 
 ### Normalidade
 
-Uma função base u(x) é normalizada se u u =. 1
+Uma função base $u(x)$ é normalizada se $\lang u|u \rang = 1$
 
-Haar normalizado:
+- Haar normalizado:
 
- i (x ) := 2 2  (2 j x − i ), i = 0, ..., 2 j − 1
-j
-j
+$$
+\phi
+$$
 
- i (x ) := 2 2  (2 j x − i ), i = 0, ..., 2 j − 1
-j
-j
-Ex. para [6 2 1 - 1], se tornam normalizados:
- 1 −1
-6 2 
- 2 2
+$$
+\Psi
+$$
+
+- Ex. para $[6, 2, 1, -1]$, se tornam normalizados:
+
+$$
+\begin{bmatrix}
+  6 && 2 && \frac{1}{\sqrt{2}} && \frac{-1}{\sqrt{2}}
+\end{bmatrix}
+$$
 
 ### Algoritmo de Transformada Wavelet Haar
 
+```python
 Decomposi ( C[1...2^j ])
-C c / sqrt (2 ^ j ) // normaliza coef inp DecomposiStep ( C[1...2^j ])
-g2^j FOR i = 1 .. 2 ^ (j- 1)
-WHILE g >= 2 DO C’ ( C[2i – 1] + C[2i] ) / sqrt (2)
-DecomposiStep ( C [1 .. g ]) C’[2^(j- 1) + 1] (C[2i – 1] - C[2i] ) / sqrt (2)
-gg/2 END
-END C C’
+C c / sqrt (2 ^ j )     // normaliza coef inp
+g 2 ^ j 
+WHILE g >= 2  DO
+DecomposiStep ( C [1 .. g ])
+g g / 2
+END
+```
+
+```python
+DecomposiStep ( C[1...2^j ])
+FOR i = 1 .. 2 ^ (j-1)
+C’ ( C[2i – 1] + C[2i] ) / sqrt (2) 
+C’[2^(j-1) + 1] (C[2i – 1] - C[2i] ) / sqrt (2)
+END
+C C’
+```
+
+```python
 Reconstruc ( C[1...2^j ])
+g 2
+WHILE g =< 2 ^ j   DO
+ReconstrucStep ( C [1 .. g ])
+g 2g
+END
+C C sqrt ( 2 ^ j )   // sem normalização
+```
+
+```python
 ReconstrucStep ( C[1...2^j ])
-g2
-FOR i = 1 .. 2 ^ (j- 1)
-WHILE g =< 2 ^ j DO
-C’[ 2i – 1 ] ( C[ i ] + C[2 ^ (j- 1) + i] ) / sqrt (2)
-ReconstrucStep ( C [1 .. g ]) C’[2i] (C[ i ] - C[2 ^ (j –i) + i ] ) / sqrt (2)
-g 2g END
-END C C’
-C C sqrt ( 2 ^ j ) // sem normalização
+FOR i = 1 .. 2 ^ (j-1)
+C’[ 2i – 1 ] ( C[ i ] + C[2 ^ (j-1) + i] ) / sqrt (2) 
+C’[2i] (C[ i ] - C[2 ^ (j –i) + i ] ) / sqrt (2)
+END
+C C’
+```
 
 ### Transformada de Wavelet de Haar bidimensional
 
-a. Decomposição padrão
-b. Decomposição não padrão.
+- Imagens
+  a. Decomposição padrão <!-- Imagem -->
+  b. Decomposição não padrão. <!-- Imagem -->
 
 ### Compressão
 
-O objetivo da compressão é expressar um conjunto inicial de dados
-usando outro conjunto menor, com ou sem perda de informação.
+O objetivo da compressão é expressar um conjunto inicial de dados usando outro conjunto menor, com ou sem perda de informação.
 
-Seja a imagem f (x) expressa pela soma de funções base :
-m
+Seja a imagem $f(x)$ expressa pela soma de funções base:
+
+$$
 f ( x ) =  ci u i ( x )
 i =1
-Com m coeficientes ci.
-A função que aproxima f(x), com menos coeficientes:
-~
-m
-f (x ) =  c~i u~i (x )  f (x )
-~
-i =1
+$$
+
+Com $m$ coeficientes $c_i$.
+A função que aproxima $f(x)$, com menos coeficientes:
+
+$$
+\tilde{f}
+=
+\sum_{}^{\tilde{m}}
+$$
 
 ### Aproximações e Detalhes
 
-Árvore de Decomposição Árvore de Decomposição Wavelet
-Wavelet de um sinal
+- Árvore de Decomposição *Wavelet* <!-- Imagem -->
+- Árvore de Decomposição *Wavelet* de um sinal <!-- Imagem -->

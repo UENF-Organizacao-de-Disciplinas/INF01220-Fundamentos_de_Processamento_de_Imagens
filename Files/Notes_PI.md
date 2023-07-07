@@ -156,7 +156,7 @@ pega os 16 com maior quantidade e então esses englobam os outros pontos.
 
 Paramos aqui
 
-## Aula 4 - 16/03/23 - 1/4 - [14h27, 16h01]
+## Aula 4 - 16/03/23 - [14h27, 16h01]
 
 ### OffTopic (4)
 
@@ -223,7 +223,7 @@ Usando a normalização ele conseguiu lidar bem com os valores
 
 FIM DA AULA
 
-## Aula 5 - 21/03/23 - 1/4 - [14h24, 15h59]
+## Aula 5 - 21/03/23 - [14h24, 15h59]
 
 ### Offtopic
 
@@ -314,9 +314,9 @@ Processamento e armazenamento: Olho e cérebro
   - Codificação: Transformação em formato apropriado para seu uso
   - Decodificação: Inversa de codificação (perda ou sem perda de informação)
 
-## Aula 6 - 23/03/23 - 0/4 - Faltei pra fazer prova da Daedalus
+## Aula 6 - 23/03/23 - Faltei pra fazer prova da Daedalus
 
-## Aula 7 - 28/03/23 - 1/4 - [14h31, 15h53] - Cheguei atrasado
+## Aula 7 - 28/03/23 - [14h31, 15h53] - Cheguei atrasado
 
 ### Offtopic 7
 
@@ -411,7 +411,7 @@ Baixo contraste: reduz a gama de cores, tornado elas mais centralizadas
 Alta luminosidade: arrasta as cores mais para o branco
 Baixa luminosidade: arrasta as cores mais para o preto
 
-## Aula 8 - 30/03/23 - 1/4 - [14h45, 16h04] - OpenCV
+## Aula 8 - 30/03/23 - [14h45, 16h04] - OpenCV
 
 ### Offtopic 8
 
@@ -458,7 +458,7 @@ g(x,y) = {
 
 <!-- Fim -->
 
-## Aula 9 - 04/04/23 - 1/4 - [14h21, 15h58]
+## Aula 9 - 04/04/23 - [14h21, 15h58]
 
 ### FPI3 - Visão computacional (slide 4) - Aula 9
 
@@ -519,7 +519,7 @@ int obter_melhor_k_Otsu() {
 
 ## Aula 10 - 06/04/23 - Feriado
 
-## Aula 11 - 11/04/23 - 1/4 - [14h10, 15h56]
+## Aula 11 - 11/04/23 - [14h10, 15h56]
 
 ### FPI3 - Operações de imagens - Aula 11
 
@@ -619,7 +619,7 @@ Deformações permitidas e não permitidas
 
 <!-- Imagem -->
 
-## Aula 12 - 13/04/23 - 1/4 - [14h30, 16h03]
+## Aula 12 - 13/04/23 - [14h30, 16h03]
 
 ### Offtopic 12
 
@@ -690,7 +690,7 @@ Transformada de Fourier é converter imagens em suas ondas
 
 <!-- Imagens -->
 
-## Aula 13 - 18/04/23 - 1/4 - [14h23, ...]
+## Aula 13 - 18/04/23 - [14h23, ...]
 
 ### Offtopic 13
 
@@ -755,7 +755,7 @@ $$
 F(x) = \frac{1}{N} \sum_{0 \leq u \leq N-1} f(u) \left[ \cos(2\pi u x /N) - j \sin(2\pi ux/N) \right], 0 \leq x \leq N-1
 $$
 
-## Aula 14 - 20/04/23 - 1/4 - [14h34, 15h58]
+## Aula 14 - 20/04/23 - [14h34, 15h58]
 
 ### Offtopic 14
 
@@ -802,7 +802,7 @@ $$
 F(u,v)*H(u,v) = \frac{1}{NM} \sum_{m=0}^{M-1} \sum_{n=0}^{N-1} F(m,n) H(u-m, v-m)
 $$
 
-## Aula 15 - 25/04/23 - 1/4 - [14h35, 16h14]
+## Aula 15 - 25/04/23 - [14h35, 16h14]
 
 ### Offtopic (15)
 
@@ -960,7 +960,7 @@ O valor de brilho médio da imagem, isto é, o componente de frequência zero, �
 [wavelets]: https://youtu.be/jnxqHcObNK4
 [fft]: https://youtu.be/b06pFMIRO0I
 
-## Aula 17 - 02/05/23 - 1/4 - [14h25, 16h13]
+## Aula 17 - 02/05/23 - [14h25, 16h13]
 
 ### Offtopic Aula 17
 
@@ -1134,7 +1134,7 @@ $$
 
 ###### Filtro Gaussiano (17)
 
-## Aula 18 - 04/05/23 - 1/4 - [14h43, 16h15]
+## Aula 18 - 04/05/23 - [14h43, 16h15]
 
 ### Offtopic Aula 18
 
@@ -1489,7 +1489,7 @@ Não tem no slide
 ** Será aplicado um teste em relação aos tópicos envolvidos neste trabalho
 Entregar 1 de dezembro
 
-## Aula 19 - 09/05/23 - 1/4 - [14h15, 15h59] - Semana 10
+## Aula 19 - 09/05/23 - [14h15, 15h59] - Semana 10
 
 ### Slide 4 - Filtros de Imagens
 
@@ -1584,7 +1584,7 @@ Partição da imagem baseada no conteúdos de grupos de pixels.
 
 <!-- Imagem -->
 
-## Aula 20 - 11/05/23 - 1/4 - [14h24, 16h00]
+## Aula 20 - 11/05/23 - [14h24, 16h00]
 
 ### OffTopic (20)
 
@@ -1609,7 +1609,7 @@ Fim:Slide 5 - Extração de Características > Propriedades do Pixel > Vizinhan�
 
 <!-- Fim Anotações JV -->
 
-## Aula 21 - 16/05/23 - 1/4 - [14h11, 16h04]
+## Aula 21 - 16/05/23 - [14h11, 16h04]
 
 ### Offtopic (21)
 
@@ -1617,7 +1617,7 @@ Fim:Slide 5 - Extração de Características > Propriedades do Pixel > Vizinhan�
 
 Paramos em Círculo (página 33)
 
-## Aula 22 - 18/05/23 - 1/4 - [14h47, 16h..]
+## Aula 22 - 18/05/23 - [14h47, 16h..]
 
 ### Offtopic (22)
 
@@ -1627,7 +1627,7 @@ Paramos em Círculo (página 33)
 
 ## Aula 23 - 23/05/23 - Faltei
 
-## Aula 24 - 25/05/23 - 1/4 - [14h30, 16h10]
+## Aula 24 - 25/05/23 - [14h30, 16h10]
 
 ### Offtopic (24)
 
@@ -1639,4 +1639,38 @@ Começou em Histograma de de Gradientes Orientados
 Terminou em Efeitos de superposição
 Reconhecimento de padrões em imagens
 
-## Aula 25 - 30/05/23 - 1/4 - [14h30, 16h00]
+## Aula 25 - 30/05/23 - Faltei
+
+## Aula 26 - 01/06/23 - [16h56, 18h00]
+
+### Offtopic 26
+
+- Rivera colocou o piso da casa dele
+- Valesca é a o nome da esposa dele
+  - > Luis é uma foda
+
+## Aula 27 - 06/06/23 - [14h20, 18h..] - Semana 14
+
+### Offtopic 27
+
+- Luis Velho
+- Lucena tem dois filhos, cada filho tem uma empresa.
+- Existe dimensão 1,3?
+- Existe dimensão 0?
+- Existe dimensão -1?
+
+### Aula 27
+
+- Finalização do Slide 6 e começo de compressão de imagem.
+  - Paramos em: Slide 7, Codificação por LZW
+- O Gif é poderoso quando é monocromático
+
+## Aula 28 - 07/06/23 - [14h30, 16h32] - Semana 14
+
+### Offtopic 28
+
+- "Cachorros latindo, uau uau uau" 🐶
+- "O grito de um dinossauro 🦖, de un leon 🦁"
+- "Só que aí, Lena está ali meia tortinha"
+
+### Slide 7 (28)
