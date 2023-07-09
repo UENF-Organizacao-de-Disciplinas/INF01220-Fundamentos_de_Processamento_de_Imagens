@@ -17,7 +17,7 @@ files = [
 
 def fill_images():
     """ add images """
-    base = 'Files/Code/Basic_Canvas/img/img_'
+    base = 'Files/Code/Basic_Canvas/img/'
     for file in files:
         file_path = base+file
         pil_image = Image.open(file_path)
