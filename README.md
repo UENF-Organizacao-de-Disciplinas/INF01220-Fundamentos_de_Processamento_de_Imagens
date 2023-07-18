@@ -38,4 +38,4 @@
 - Ano cursado: 2023_1
 - [Ementa][LinkEmenta]
 
-[LinkEmenta]: https://github.com/UENF-Conteudo-de-Disciplinas/INF01220-Fundamentos_de_Processamento_de_Imagens
+[LinkEmenta]: https://github.com/UENF-Conteudo-de-Disciplinas/INF01220-Fundamentos_de_Processamento_de_Imagens/blob/main/Files/ementa%20INF01220%20-%20Fundamentos%20de%20Processamento%20de%20Imagens.pdf
